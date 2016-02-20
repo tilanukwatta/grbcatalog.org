@@ -60,6 +60,7 @@ grb_data_table_row = []
 grb_data_table_row.append('GRB Name')
 grb_data_table_row.append('GRB Date')
 for item in measurement_type_:
+    print item.measurement_type_name
     grb_data_table_row.append(item.measurement_type_name)
 
 #grb_data_table.append(grb_data_table_row_dict.keys())
@@ -80,6 +81,7 @@ for gitem in grb_:
             if mitem.measurement_type.data_type == "DATE":
                 grb_data_table_row_dict['GRB Date'] = mitem.date
                 grb_data_table_row_dict[mitem.measurement_type.measurement_type_name] = mitem.date
+    print grb_data_table_row_dict
     #grb_data_table.append(grb_data_table_row_dict.values())
     grb_data_table.append(grb_data_table_row_dict)
     #print grb_data_table
