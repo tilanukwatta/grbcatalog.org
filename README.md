@@ -1,10 +1,5 @@
 # grbcatalog.org
 
-===================================================================
-1. Overview
-2. Description
-===================================================================
-
 1. Overview
 
 grbcatalog.org is an open source web application dedicated to
