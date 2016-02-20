@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}grbcatalog{% endblock %}
+
+{% block reload %}  {% endblock %}
+
+{% block content %}
+
+<h2>grbcatalog</h2>
+
+<ul>
+{% for grb in object_list %}
+	<li>GRB{{ grb.grb_name }}</li>	
+{% endfor %}
+</ul>
+
+{% endblock %}
+
+{% block footer%}
+
+grbcatalog
+
+{% endblock%}

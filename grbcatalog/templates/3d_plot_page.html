@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+
+{% block title %}grbcatalog.org Plot{% endblock %}
+
+{% block reload %}  {% endblock %}
+
+{% block content %}
+
+<div id="corr_container">
+
+<form action="{%url 'corr_page'%}">
+    <p> Select Measurement 01 (x-axis):
+    <select name="type_id_01" class="select_styles" id="corr_plot1">
+    <option value="{{type_id_01}}" >{{type_id_01}}</option>
+    {% for measurement in available_types %}
+      {% if measurement.1 != type_id_01 %}
+           <option value="{{measurement.1}}" >{{measurement.1}}</option>
+      {% endif %}
+    {% endfor %}
+    </select>
+    </p>
+    <p> Select Measurement 02 (y-axis):
+    <select name="type_id_02" class="select_styles" id="corr_plot2">
+    <option value="{{type_id_02}}" >{{type_id_02}}</option>
+    {% for measurement in available_types %}
+      {% if measurement.1 != type_id_02 %}
+           <option value="{{measurement.1}}" >{{measurement.1}}</option>
+      {% endif %}
+    {% endfor %}
+    </select>
+    </p>
+    <p>
+
+    <p>
+        X Scale:
+        <input type="text" class="input" name="x_min" value="{{x_min}}">
+        <input type="text" class="input" name="x_max" value="{{x_max}}">
+        X Log Scale:
+        {% if x_log == "True" %}
+            <input type="checkbox" name="x_log" value="True" checked>
+        {% else %}
+            <input type="checkbox" name="x_log" value="True">
+        {% endif %}
+
+        Y Scale:
+        <input type="text" class="input" name="y_min" value="{{y_min}}">
+        <input type="text" class="input" name="y_max" value="{{y_max}}">
+        Y Log Scale:
+        {% if y_log == "True" %}
+            <input type="checkbox" name="y_log" value="True" checked>
+        {% else %}
+            <input type="checkbox" name="y_log" value="True">
+        {% endif %}
+
+        <br>
+        Custom Labels:
+        {% if c_label == "True" %}
+            <input type="checkbox" name="c_label" value="True" checked>
+        {% else %}
+            <input type="checkbox" name="c_label" value="True">
+        {% endif %}
+
+        X Label:
+        <input type="text" class="inputText" name="x_label" value="{{x_label}}">
+        Y Label:
+        <input type="text" class="inputText" name="y_label" value="{{y_label}}">
+        Title:
+        <input type="text" class="inputText" name="title" value="{{title}}">
+
+        <input type="hidden" class="input" name="measurement_type" value="{{measurement_type}}">
+        <input type="hidden" class="input" name="x_year_min" value="{{x_year_min}}">
+        <input type="hidden" class="input" name="x_month_min" value="{{x_month_min}}">
+        <input type="hidden" class="input" name="x_day_min" value="{{x_day_min}}">
+        <input type="hidden" class="input" name="x_hour_min" value="{{x_hour_min}}">
+        <input type="hidden" class="input" name="x_min_min" value="{{x_min_min}}">
+        <input type="hidden" class="input" name="x_sec_min" value="{{x_sec_min}}">
+        <input type="hidden" class="input" name="x_year_max" value="{{x_year_max}}">
+        <input type="hidden" class="input" name="x_month_max" value="{{x_month_max}}">
+        <input type="hidden" class="input" name="x_day_max" value="{{x_day_max}}">
+        <input type="hidden" class="input" name="x_hour_max" value="{{x_hour_max}}">
+        <input type="hidden" class="input" name="x_min_max" value="{{x_min_max}}">
+        <input type="hidden" class="input" name="x_sec_max" value="{{x_sec_max}}">
+        <input type="hidden" class="input" name="num_cuts" value="{{num_cuts}}">
+        <input type="hidden" class="input" name="no_date_cut" value="{{no_date_cut}}">
+        {% for cuts in cut_array %}
+        <input type="hidden" class="input" name={{cuts.0}} value="{{cuts.3}}">
+        <input type="hidden" class="input" name={{cuts.1}} value="{{cuts.5}}">
+        <input type="hidden" class="input" name={{cuts.2}} value="{{cuts.4}}">
+        {% endfor %}
+
+
+        <input type="submit" class="button" value="Plot">
+    </p>
+</form>
+
+<img src="{%url 'corr_plot'%}?title={{title}}&x_label={{x_label}}&y_label={{y_label}}&type_id_01={{type_id_01}}&type_id_02={{type_id_02}}&bin_num={{bin_num}}&x_year_min={{x_year_min}}&x_month_min={{x_month_min}}&x_day_min={{x_day_min}}&x_hour_min={{x_hour_min}}&x_min_min={{x_min_min}}&x_sec_min={{x_sec_min}}&x_year_max={{x_year_max}}&x_month_max={{x_month_max}}&x_day_max={{x_day_max}}&x_hour_max={{x_hour_max}}&x_min_max={{x_min_max}}&x_sec_max={{x_sec_max}}&y_min={{y_min}}&y_max={{y_max}}&x_min={{x_min}}&x_max={{x_max}}&x_log={{x_log}}&y_log={{y_log}}{% for cuts in cut_array %}&{{cuts.0}}={{cuts.3}}&{{cuts.1}}={{cuts.5}}&{{cuts.2}}={{cuts.4}}{% endfor %}&num_cuts={{num_cuts}}&no_date_cut={{no_date_cut}}"  align="middle" width="960" height="560" alt="Plot is Loading... Please wait...">
+
+<p>
+    <a href="{%url 'corr_plot'%}?title={{title}}&x_label={{x_label}}&y_label={{y_label}}&type_id_01={{type_id_01}}&type_id_02={{type_id_02}}&bin_num={{bin_num}}&plot_type=pdf&x_year_min={{x_year_min}}&x_month_min={{x_month_min}}&x_day_min={{x_day_min}}&x_hour_min={{x_hour_min}}&x_min_min={{x_min_min}}&x_sec_min={{x_sec_min}}&x_year_max={{x_year_max}}&x_month_max={{x_month_max}}&x_day_max={{x_day_max}}&x_hour_max={{x_hour_max}}&x_min_max={{x_min_max}}&x_sec_max={{x_sec_max}}&y_min={{y_min}}&y_max={{y_max}}&x_min={{x_min}}&x_max={{x_max}}&x_log={{x_log}}&y_log={{y_log}}{% for cuts in cut_array %}&{{cuts.0}}={{cuts.3}}&{{cuts.1}}={{cuts.5}}&{{cuts.2}}={{cuts.4}}{% endfor %}&num_cuts={{num_cuts}}&no_date_cut={{no_date_cut}}" class="button">Save as PDF</a>
+    <a href="{%url 'corr_plot'%}?title={{title}}&x_label={{x_label}}&y_label={{y_label}}&type_id_01={{type_id_01}}&type_id_02={{type_id_02}}&bin_num={{bin_num}}&plot_type=text&x_year_min={{x_year_min}}&x_month_min={{x_month_min}}&x_day_min={{x_day_min}}&x_hour_min={{x_hour_min}}&x_min_min={{x_min_min}}&x_sec_min={{x_sec_min}}&x_year_max={{x_year_max}}&x_month_max={{x_month_max}}&x_day_max={{x_day_max}}&x_hour_max={{x_hour_max}}&x_min_max={{x_min_max}}&x_sec_max={{x_sec_max}}&y_min={{y_min}}&y_max={{y_max}}&x_min={{x_min}}&x_max={{x_max}}&x_log={{x_log}}&y_log={{y_log}}{% for cuts in cut_array %}&{{cuts.0}}={{cuts.3}}&{{cuts.1}}={{cuts.5}}&{{cuts.2}}={{cuts.4}}{% endfor %}&num_cuts={{num_cuts}}&no_date_cut={{no_date_cut}}" class="button">Save as Text</a>
+    <a href="{%url 'help_page'%}?help_topic=grb_catalog_corr_help" class="button" target="_blank">Help</a>
+    <a href="{%url 'grb_main_page'%}?plot_type=text&x_year_min={{x_year_min}}&x_month_min={{x_month_min}}&x_day_min={{x_day_min}}&x_hour_min={{x_hour_min}}&x_min_min={{x_min_min}}&x_sec_min={{x_sec_min}}&x_year_max={{x_year_max}}&x_month_max={{x_month_max}}&x_day_max={{x_day_max}}&x_hour_max={{x_hour_max}}&x_min_max={{x_min_max}}&x_sec_max={{x_sec_max}}{% for cuts in cut_array %}&{{cuts.0}}={{cuts.3}}&{{cuts.1}}={{cuts.5}}&{{cuts.2}}={{cuts.4}}{% endfor %}&num_cuts={{num_cuts}}&no_date_cut={{no_date_cut}}" class="button">Go Back</a>
+</p>
+
+<p></p>
+
+</div><!--corr_container-->
+
+{% endblock %}
+
+{% block footer%}
+
+grbcatalog.org
+
+{% endblock%}

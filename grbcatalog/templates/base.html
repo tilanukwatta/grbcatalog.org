@@ -1,0 +1,39 @@
+<!DOCTYPE HTML PUBLIC " -//W3C//DTD HTML 4.01//EN">
+
+<html lang="en">
+
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    {% load static %}
+    <link rel="icon" href="{% get_static_prefix %}images/grbcatalog.ico" type="image/ico"/>
+    <link rel="shortcut icon" href="{% get_static_prefix %}images/grbcatalog.ico"/>
+    <link rel="stylesheet" href="{% get_static_prefix %}css/grbcatalog.css" title="style1" type="text/css" media="screen">
+    {% block reload %} {% endblock %}
+</head>
+
+<body>
+<div id="container">
+<h1>grbcatalog.org</h1>
+
+    {% block content %}
+    
+    {% endblock %}
+
+
+<div id="footer">
+
+    {% block footer %}
+      
+    {% endblock %}
+
+</div><!--footer-->
+
+</div><!--container-->
+
+
+</body>
+
+</html>
+
+
+
