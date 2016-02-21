@@ -3985,14 +3985,13 @@ S'-'
 sg42
 F-19.1645
 sg43
-Vr(AB)=26.8, J(AB)=26.1 and H(AB)=25.7 (HST)
-p455
+V
 sg44
 F-2.5110000000000001
 sg45
 VUVOT: no detection
-p456
-sa(dp457
+p455
+sa(dp456
 g3
 S'-'
 sg4
@@ -4017,7 +4016,7 @@ sg14
 g15
 (S'\x07\xdf\x07\x16\t95\x00\x00\x00'
 g17
-tRp458
+tRp457
 sg19
 S'-'
 sg20
@@ -4026,7 +4025,7 @@ sg21
 F218.27795833299999
 sg22
 VB>21.0|U>20.6|UVW1>20.1|UVM2>20.3|UVW2>21.4|White>21.6
-p459
+p458
 sg24
 F-35.195999999999998
 sg25
@@ -4037,26 +4036,26 @@ sg27
 F0.079569215999999998
 sg28
 VFrank Marshall
-p460
+p459
 sg30
 S'-'
 sg31
 V649916
-p461
+p460
 sg33
 F1.79
 sg34
 S'-'
 sg35
 VV>20.0
-p462
+p461
 sg37
 F2.7999999999999998
 sg38
 V150722A
-p463
+p462
 sg40
-g458
+g457
 sg41
 S'-'
 sg42
@@ -4067,8 +4066,8 @@ sg44
 F-0.94979999999999998
 sg45
 VDue to an observing constraint, Swift did not slew until T0+50.9 minutes.|UVOT: no detection
-p464
-sa(dp465
+p463
+sa(dp464
 g3
 S'-'
 sg4
@@ -4093,7 +4092,7 @@ sg14
 g15
 (S'\x07\xdf\x07\x14\x0e\x02\t\x00\x00\x00'
 g17
-tRp466
+tRp465
 sg19
 S'-'
 sg20
@@ -4102,7 +4101,7 @@ sg21
 F119.581458333
 sg22
 VB>19.6|U>20.2|UVW1>19.3|UVM2>19.8|UVW2>19.6|White>21.2
-p467
+p466
 sg24
 F-28.280999999999999
 sg25
@@ -4113,26 +4112,26 @@ sg27
 S'-'
 sg28
 VEda Sonbas
-p468
+p467
 sg30
 F2930
 sg31
 V649706
-p469
+p468
 sg33
 F2.6099999999999999
 sg34
 S'-'
 sg35
 VV>19.3
-p470
+p469
 sg37
 F1.5
 sg38
 V150720A
-p471
+p470
 sg40
-g466
+g465
 sg41
 S'-'
 sg42
@@ -4143,8 +4142,8 @@ sg44
 F-8
 sg45
 VXRT: Given the light curve and spectrum behaviour, we believe that this is a real GRB and not a galactic transient.|UVOT: no detection
-p472
-sa(dp473
+p471
+sa(dp472
 g3
 S'-'
 sg4
@@ -4169,7 +4168,7 @@ sg14
 g15
 (S'\x07\xdf\x07\x10\x07\x06+\x00\x00\x00'
 g17
-tRp474
+tRp473
 sg19
 S'-'
 sg20
@@ -4178,7 +4177,7 @@ sg21
 F278.48791666699998
 sg22
 VB>20.86|U>19.17|UVW1>19.38|UVM2>29.38|UVW2>19.61|White>21.11
-p475
+p474
 sg24
 F-12.978
 sg25
@@ -4189,26 +4188,26 @@ sg27
 F0.00308292594
 sg28
 VDan Kocevski
-p476
+p475
 sg30
 F136
 sg31
 V649157
-p477
+p476
 sg33
 F1.54
 sg34
 S'-'
 sg35
 VV>18.62
-p478
+p477
 sg37
 F1.1000000000000001
 sg38
 V150716A
-p479
+p478
 sg40
-g474
+g473
 sg41
 S'-'
 sg42
@@ -4219,8 +4218,8 @@ sg44
 F-1.677
 sg45
 VUVOT: no detection
-p480
-sa(dp481
+p479
+sa(dp480
 g3
 S'-'
 sg4
@@ -4235,7 +4234,7 @@ sg8
 F106.73999999999999
 sg9
 VFermi (GBM)
-p482
+p481
 sg11
 S'-'
 sg12
@@ -4246,7 +4245,7 @@ sg14
 g15
 (S'\x07\xdf\x07\x0b\x12\x17\x03\x00\x00\x00'
 g17
-tRp483
+tRp482
 sg19
 S'-'
 sg20
@@ -4255,7 +4254,7 @@ sg21
 F221.62658333300001
 sg22
 VB>19.9|U>20.2|UVW1>18.8|UVM2>18.9|UVW2>18.8|White>21.9
-p484
+p483
 sg24
 F-35.463999999999999
 sg25
@@ -4266,26 +4265,26 @@ sg27
 F0.064204272000000007
 sg28
 VMaria Bernardini
-p485
+p484
 sg30
 F113
 sg31
 V648601
-p486
+p485
 sg33
 F1.79
 sg34
 S'-'
 sg35
 VV>19.0
-p487
+p486
 sg37
 F1
 sg38
 V150711A
-p488
+p487
 sg40
-g483
+g482
 sg41
 S'-'
 sg42
@@ -4296,7 +4295,7 @@ sg44
 F-2.919
 sg45
 S'-'
-sa(dp489
+sa(dp488
 g3
 S'-'
 sg4
@@ -4311,7 +4310,7 @@ sg8
 F115200
 sg9
 VKonus-Wind
-p490
+p489
 sg11
 S'-'
 sg12
@@ -4322,7 +4321,7 @@ sg14
 g15
 (S'\x07\xdf\x07\n\x08\x05#\x00\x00\x00'
 g17
-tRp491
+tRp490
 sg19
 F0.98999999999999999
 sg20
@@ -4331,7 +4330,7 @@ sg21
 F83.218666666700003
 sg22
 VU>20.5|White>21.1
-p492
+p491
 sg24
 F-46.960000000000001
 sg25
@@ -4342,26 +4341,26 @@ sg27
 F0.212647
 sg28
 VJay Cummings
-p493
+p492
 sg30
 S'-'
 sg31
 VGround Analysis|20542
-p494
+p493
 sg33
 S'-'
 sg34
 S'-'
 sg35
 VV>19.5
-p495
+p494
 sg37
 F1.2
 sg38
 V150710B
-p496
+p495
 sg40
-g491
+g490
 sg41
 S'-'
 sg42
@@ -4372,8 +4371,8 @@ sg44
 F-1.0249999999999999
 sg45
 VUVOT: no detection
-p497
-sa(dp498
+p496
+sa(dp497
 g3
 S'-'
 sg4
@@ -4388,7 +4387,7 @@ sg8
 F49.200000000000003
 sg9
 VKonus-Wind
-p499
+p498
 sg11
 S'-'
 sg12
@@ -4399,7 +4398,7 @@ sg14
 g15
 (S'\x07\xdf\x07\n\x00\x1c\x02\x00\x00\x00'
 g17
-tRp500
+tRp499
 sg19
 S'-'
 sg20
@@ -4408,7 +4407,7 @@ sg21
 F194.47045833300001
 sg22
 VB>19.1|U>20.0|UVW1>18.5|UVM2>18.2|UVW2>19.0|White>21.1
-p501
+p500
 sg24
 F14.308999999999999
 sg25
@@ -4419,26 +4418,26 @@ sg27
 S'-'
 sg28
 VMaria Bernardini
-p502
+p501
 sg30
 S'-'
 sg31
 V648437
-p503
+p502
 sg33
 F0.63
 sg34
 S'-'
 sg35
 VV>18.1
-p504
+p503
 sg37
 F1.5
 sg38
 V150710A
-p505
+p504
 sg40
-g500
+g499
 sg41
 S'-'
 sg42
@@ -4449,8 +4448,8 @@ sg44
 S'-'
 sg45
 VPossible burst, but the source location is consistent with 1RXS J125754.7+14185.|UVOT: no detection
-p506
-sa(dp507
+p505
+sa(dp506
 g3
 S'-'
 sg4
@@ -4465,7 +4464,7 @@ sg8
 F126.09999999999999
 sg9
 VAMI @ 16 GHz
-p508
+p507
 sg11
 S'-'
 sg12
@@ -4476,7 +4475,7 @@ sg14
 g15
 (S'\x07\xdf\x06\x1a\x14\x164\x00\x00\x00'
 g17
-tRp509
+tRp508
 sg19
 S'-'
 sg20
@@ -4485,7 +4484,7 @@ sg21
 F187.63329166700001
 sg22
 VB>20.8|U>20.7|UVW1>20.4|UVM2>20.3|UVW2>20.4|White>21.6
-p510
+p509
 sg24
 F66.793999999999997
 sg25
@@ -4496,26 +4495,26 @@ sg27
 S'-'
 sg28
 VMarissa McCauley
-p511
+p510
 sg30
 S'-'
 sg31
 V646786
-p512
+p511
 sg33
 F1.3600000000000001
 sg34
 S'-'
 sg35
 VV>19.5
-p513
+p512
 sg37
 F1.8999999999999999
 sg38
 V150626B
-p514
+p513
 sg40
-g509
+g508
 sg41
 S'-'
 sg42
@@ -4526,8 +4525,8 @@ sg44
 F-0.20000000000000001
 sg45
 VUVOT: no detection
-p515
-sa(dp516
+p514
+sa(dp515
 g3
 S'-'
 sg4
@@ -4552,7 +4551,7 @@ sg14
 g15
 (S'\x07\xdf\x06\x1a\x02\x0c1\x00\x00\x00'
 g17
-tRp517
+tRp516
 sg19
 S'-'
 sg20
@@ -4561,7 +4560,7 @@ sg21
 F111.33674999999999
 sg22
 VU>19.8|B>19.7|UVW1>18.8|UVM2>18.6|UVW2>19.0|White>21.1
-p518
+p517
 sg24
 F-37.802999999999997
 sg25
@@ -4572,26 +4571,26 @@ sg27
 S'-'
 sg28
 VTineke Roegiers
-p519
+p518
 sg30
 F303
 sg31
 V646603
-p520
+p519
 sg33
 F2.1099999999999999
 sg34
 S'-'
 sg35
 VV>18.8
-p521
+p520
 sg37
 F1.8999999999999999
 sg38
 V150626A
-p522
+p521
 sg40
-g517
+g516
 sg41
 S'-'
 sg42
@@ -4602,8 +4601,8 @@ sg44
 F-0.65000000000000002
 sg45
 VUVOT: no detection
-p523
-sa(dp524
+p522
+sa(dp523
 g3
 S'-'
 sg4
@@ -4628,7 +4627,7 @@ sg14
 g15
 (S'\x07\xdf\x06\x10\x161\x13\x00\x00\x00'
 g17
-tRp525
+tRp524
 sg19
 F1.3700000000000001
 sg20
@@ -4637,7 +4636,7 @@ sg21
 F314.71674999999999
 sg22
 VB>20.5|U>20.5|UVW1>20.2|UVM2>19.9|UVW2>20.1|White>21.8
-p526
+p525
 sg24
 F-53.402999999999999
 sg25
@@ -4648,26 +4647,26 @@ sg27
 F0.35894136500000001
 sg28
 VAmy Lien
-p527
+p526
 sg30
 F454
 sg31
 V644259
-p528
+p527
 sg33
 S'-'
 sg34
 S'-'
 sg35
 VV>19.6
-p529
+p528
 sg37
 F1.2
 sg38
 V150616A
-p530
+p529
 sg40
-g525
+g524
 sg41
 S'-'
 sg42
@@ -4678,8 +4677,8 @@ sg44
 F1.5
 sg45
 VUVOT: no detection
-p531
-sa(dp532
+p530
+sa(dp531
 g3
 S'-'
 sg4
@@ -4704,7 +4703,7 @@ sg14
 g15
 (S'\x07\xdf\x06\x0f\x04*\x1b\x00\x00\x00'
 g17
-tRp533
+tRp532
 sg19
 S'-'
 sg20
@@ -4713,7 +4712,7 @@ sg21
 F107.564708333
 sg22
 VB>19.9|U>20.2|UVW1>19.2|UVM2>18.9|UVW2>19.4|White=20.64
-p534
+p533
 sg24
 F-22.466000000000001
 sg25
@@ -4724,26 +4723,26 @@ sg27
 F0.104774593
 sg28
 VNora Troja
-p535
+p534
 sg30
 F39.399999999999999
 sg31
 V643833
-p536
+p535
 sg33
 F1.8400000000000001
 sg34
 S'-'
 sg35
 VV>18.3
-p537
+p536
 sg37
 F1.8
 sg38
 V150615A
-p538
+p537
 sg40
-g533
+g532
 sg41
 S'-'
 sg42
@@ -4754,7 +4753,7 @@ sg44
 F-3.0790000000000002
 sg45
 S'-'
-sa(dp539
+sa(dp538
 g3
 F139.98833333300001
 sg4
@@ -4769,7 +4768,7 @@ sg8
 F130.91
 sg9
 VFermi (GBM), NOT, Konus-Wind, DCT (4.3m), AS-32 (0.7m)
-p540
+p539
 sg11
 F68.436194444400002
 sg12
@@ -4780,7 +4779,7 @@ sg14
 g15
 (S'\x07\xdf\x06\x07\x077\t\x00\x00\x00'
 g17
-tRp541
+tRp540
 sg19
 F0.98999999999999999
 sg20
@@ -4789,7 +4788,7 @@ sg21
 F139.98854166699999
 sg22
 VB>19.65|U=18.88|UVW1>19.60|UVM2>19.74|UVW2>20.30|White=18.10
-p542
+p541
 sg24
 F68.436000000000007
 sg25
@@ -4800,26 +4799,26 @@ sg27
 F0.15921344000000001
 sg28
 VValerio D'Elia
-p543
+p542
 sg30
 F46.399999999999999
 sg31
 V642620
-p544
+p543
 sg33
 S'-'
 sg34
 S'-'
 sg35
 VV=16.71
-p545
+p544
 sg37
 F1.2
 sg38
 V150607A
-p546
+p545
 sg40
-g541
+g540
 sg41
 F0.44
 sg42
@@ -4830,7 +4829,7 @@ sg44
 F-0.81479999999999997
 sg45
 S'-'
-sa(dp547
+sa(dp546
 g3
 S'-'
 sg4
@@ -4855,7 +4854,7 @@ sg14
 g15
 (S'\x07\xdf\x05\x1e\r\x1c&\x00\x00\x00'
 g17
-tRp548
+tRp547
 sg19
 S'-'
 sg20
@@ -4874,12 +4873,12 @@ sg27
 S'-'
 sg28
 VJay Cummings
-p549
+p548
 sg30
 S'-'
 sg31
 VGround Analysis|20522
-p550
+p549
 sg33
 F1.7
 sg34
@@ -4890,9 +4889,9 @@ sg37
 F3
 sg38
 V150530B
-p551
+p550
 sg40
-g548
+g547
 sg41
 S'-'
 sg42
@@ -4903,8 +4902,8 @@ sg44
 S'-'
 sg45
 VXRT: no detection
-p552
-sa(dp553
+p551
+sa(dp552
 g3
 S'-'
 sg4
@@ -4919,7 +4918,7 @@ sg8
 F102.67
 sg9
 VFermi (GBM), Konus-Wind
-p554
+p553
 sg11
 S'-'
 sg12
@@ -4930,7 +4929,7 @@ sg14
 g15
 (S'\x07\xdf\x05\x1e\x0b*\x12\x00\x00\x00'
 g17
-tRp555
+tRp554
 sg19
 S'-'
 sg20
@@ -4939,7 +4938,7 @@ sg21
 F327.51224999999999
 sg22
 VB>20.4U>19.7|UVW1>19.5|UVM2>19.9|UVW2>20.1|White>21.0
-p556
+p555
 sg24
 F57.518999999999998
 sg25
@@ -4950,26 +4949,26 @@ sg27
 F0.0203429083
 sg28
 VRhaana Starling
-p557
+p556
 sg30
 S'-'
 sg31
 V642018
-p558
+p557
 sg33
 F1.49
 sg34
 S'-'
 sg35
 VV>19.3
-p559
+p558
 sg37
 F1.2
 sg38
 V150530A
-p560
+p559
 sg40
-g555
+g554
 sg41
 S'-'
 sg42
@@ -4980,8 +4979,8 @@ sg44
 F-1.0129999999999999
 sg45
 VUVOT: no detection
-p561
-sa(dp562
+p560
+sa(dp561
 g3
 S'-'
 sg4
@@ -4996,7 +4995,7 @@ sg8
 F61.829999999999998
 sg9
 VFermi (GBM), REM (60cm), Konus-Wind
-p563
+p562
 sg11
 S'-'
 sg12
@@ -5007,7 +5006,7 @@ sg14
 g15
 (S'\x07\xdf\x05\x1b\x0607\x00\x00\x00'
 g17
-tRp564
+tRp563
 sg19
 S'-'
 sg20
@@ -5016,7 +5015,7 @@ sg21
 F288.95966666700002
 sg22
 VB>2.8|U>19.6|UVW1>19.4|UVW2>19.8|White>21.2
-p565
+p564
 sg24
 F4.1950000000000003
 sg25
@@ -5027,26 +5026,26 @@ sg27
 F0.101137018
 sg28
 VPhil Evans
-p566
+p565
 sg30
 S'-'
 sg31
 V641698
-p567
+p566
 sg33
 F1.6899999999999999
 sg34
 S'-'
 sg35
 VV>18.8
-p568
+p567
 sg37
 F1
 sg38
 V150527A
-p569
+p568
 sg40
-g564
+g563
 sg41
 S'-'
 sg42
@@ -5057,8 +5056,8 @@ sg44
 F-1.7
 sg45
 VUVOT: no detection
-p570
-sa(dp571
+p569
+sa(dp570
 g3
 S'-'
 sg4
@@ -5073,7 +5072,7 @@ sg8
 F1309800
 sg9
 VFermi (LAT & GBM)
-p572
+p571
 sg11
 S'-'
 sg12
@@ -5084,7 +5083,7 @@ sg14
 g15
 (S'\x07\xdf\x05\r\x14\x1f\x13\x00\x00\x00'
 g17
-tRp573
+tRp572
 sg19
 S'-'
 sg20
@@ -5103,12 +5102,12 @@ sg27
 S'-'
 sg28
 VDan Kocevski
-p574
+p573
 sg30
 S'-'
 sg31
 V640584
-p575
+p574
 sg33
 F1.3999999999999999
 sg34
@@ -5119,9 +5118,9 @@ sg37
 F1
 sg38
 V150513A
-p576
+p575
 sg40
-g573
+g572
 sg41
 S'-'
 sg42
@@ -5132,8 +5131,8 @@ sg44
 S'-'
 sg45
 VDue to a Sun observing constraint, Swift could not slew to the BAT position until 11:32 UT on 2015 May 28.|XRT: no detection
-p577
-sa(dp578
+p576
+sa(dp577
 g3
 S'-'
 sg4
@@ -5148,7 +5147,7 @@ sg8
 F80
 sg9
 VMAXI/GSC, Fermi (GBM), Konus-Wind
-p579
+p578
 sg11
 S'-'
 sg12
@@ -5159,7 +5158,7 @@ sg14
 g15
 (S'\x07\xdf\x04\x1e\x00\x15\x1c\x00\x00\x00'
 g17
-tRp580
+tRp579
 sg19
 S'-'
 sg20
@@ -5168,7 +5167,7 @@ sg21
 F326.47987499999999
 sg22
 VB>20.3|U>20.3|UVW1>20.4|UVM2>20.7|UVW2>20.9|White>21.2
-p581
+p580
 sg24
 F-27.919
 sg25
@@ -5179,26 +5178,26 @@ sg27
 F0.058682144999999998
 sg28
 VValerio D'Elia
-p582
+p581
 sg30
 F572
 sg31
 V639433
-p583
+p582
 sg33
 F1.4299999999999999
 sg34
 S'-'
 sg35
 VV>19.8
-p584
+p583
 sg37
 F1.6000000000000001
 sg38
 V150430A
-p585
+p584
 sg40
-g580
+g579
 sg41
 S'-'
 sg42
@@ -5209,8 +5208,8 @@ sg44
 F-0.19089999999999999
 sg45
 VUVOT: no detection
-p586
-sa(dp587
+p585
+sa(dp586
 g3
 S'-'
 sg4
@@ -5235,7 +5234,7 @@ sg14
 g15
 (S'\x07\xdf\x04\x1c\x03\x0c\x03\x00\x00\x00'
 g17
-tRp588
+tRp587
 sg19
 F1
 sg20
@@ -5244,7 +5243,7 @@ sg21
 F292.63941666699998
 sg22
 VB>20.8|U>20.8|UVW1>20.0|UVM2>19.9|UVW2>20.2|White>21.6
-p589
+p588
 sg24
 F4.1139999999999999
 sg25
@@ -5255,26 +5254,26 @@ sg27
 F0.096688218000000006
 sg28
 VKim Page
-p590
+p589
 sg30
 F891
 sg31
 V639278
-p591
+p590
 sg33
 S'-'
 sg34
 S'-'
 sg35
 VV>19.6
-p592
+p591
 sg37
 F1.3
 sg38
 V150428B
-p593
+p592
 sg40
-g588
+g587
 sg41
 S'-'
 sg42
@@ -5285,8 +5284,8 @@ sg44
 F-2.2959999999999998
 sg45
 VUVOT: no detection
-p594
-sa(dp595
+p593
+sa(dp594
 g3
 S'-'
 sg4
@@ -5301,7 +5300,7 @@ sg8
 F175.90000000000001
 sg9
 VLa Silla (1.56m), Konus-Wind
-p596
+p595
 sg11
 S'-'
 sg12
@@ -5312,7 +5311,7 @@ sg14
 g15
 (S'\x07\xdf\x04\x1c\x01\x1e(\x00\x00\x00'
 g17
-tRp597
+tRp596
 sg19
 S'-'
 sg20
@@ -5321,7 +5320,7 @@ sg21
 F188.53841666700001
 sg22
 VU>19.9|White_fc>20.9
-p598
+p597
 sg24
 F6.9669999999999996
 sg25
@@ -5332,12 +5331,12 @@ sg27
 F0.207219932
 sg28
 VKim Page
-p599
+p598
 sg30
 S'-'
 sg31
 V639275
-p600
+p599
 sg33
 F1.28
 sg34
@@ -5348,9 +5347,9 @@ sg37
 F1.2
 sg38
 V150428A
-p601
+p600
 sg40
-g597
+g596
 sg41
 S'-'
 sg42
@@ -5361,8 +5360,8 @@ sg44
 F-0.74909999999999999
 sg45
 VUVOT: no detection
-p602
-sa(dp603
+p601
+sa(dp602
 g3
 F152.30574999999999
 sg4
@@ -5377,7 +5376,7 @@ sg8
 F87.870000000000005
 sg9
 VKeck I (10m), Konus-Wind, NOT, MPG (2.2m), GTC (10.4), HJT (1.5m), VLA @ 9.8 GHz
-p604
+p603
 sg11
 F-26.6308611111
 sg12
@@ -5388,7 +5387,7 @@ sg14
 g15
 (S'\x07\xdf\x04\x18\x07*9\x00\x00\x00'
 g17
-tRp605
+tRp604
 sg19
 S'-'
 sg20
@@ -5397,7 +5396,7 @@ sg21
 F152.30562499999999
 sg22
 VB=20.71|U=20.13|UVW1=20.00|UVM2=19.91|UVW2=20.03|White=20.38
-p606
+p605
 sg24
 F-26.646000000000001
 sg25
@@ -5408,32 +5407,33 @@ sg27
 F0.100241991
 sg28
 VAndy Beardmore
-p607
+p606
 sg30
 F287
 sg31
 V638946
-p608
+p607
 sg33
 F1.23
 sg34
 F0
 sg35
 VV>19.8
-p609
+p608
 sg37
 F1
 sg38
 V150424A
-p610
+p609
 sg40
-g605
+g604
 sg41
 F0.59999999999999998
 sg42
 F-26.630916666699999
 sg43
-S'-'
+Vr(AB)=26.8, J(AB)=26.1 and H(AB)=25.7 (HST)
+p610
 sg44
 F-1.121
 sg45
