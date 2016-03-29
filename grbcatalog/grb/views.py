@@ -19,9 +19,18 @@ from django.utils.timezone import utc
 import csv
 import cPickle
 import grbcatalog.data_statistics as ds
+import pandas
+import grbcatalog.machinez as machinez
+import numpy as np
 
 grb_data_file = '/home/tilan/Desktop/Dropbox/django/grbcatalog/grbcatalog/grb_data.dat'
 #grb_data_file = '/web_app/grbcatalog/grbcatalog/grb_data.dat'
+
+machine_z_data_file = '/home/tilan/Desktop/Dropbox/django/grbcatalog/grbcatalog/machine-z/grb_data_sample_num_284_f25.csv'
+#machine_z_data_file = '/web_app/grbcatalog/grbcatalog/machine-z/grb_data_sample_num_284_f25.csv'
+
+feature_key_map = '/home/tilan/Desktop/Dropbox/django/grbcatalog/grbcatalog/machine-z/feature_key_map.dat'
+#feature_key_map = '/web_app/grbcatalog/grbcatalog/machine-z/feature_key_map.dat'
 
 def get_set_intersection(set1, set2):
     set3 = []
@@ -1146,12 +1155,13 @@ def grb_page(request):
         mea_row = []
         mea_row.append(item.measurement_type.measurement_type_name)
         if item.measurement_type.data_type == 'FLOAT':
-            mea_row.append(str(item.value) + " " + str(item.measurement_type.units))
+            mea_row.append(str(item.value))
         if item.measurement_type.data_type == 'TEXT':
             mea_row.append(item.text)
         if item.measurement_type.data_type == 'DATE':
             mea_row.append(item.date)
         mea_row.append(item.measurement_id)
+        mea_row.append(str(item.measurement_type.units))
         measurement_data.append(mea_row)
 
     #print measurement_data
@@ -1159,6 +1169,53 @@ def grb_page(request):
 
     return render_to_response('grb_page.html', {'grb_name': grb_name,
                                                  'measurement_data': measurement_data,
+    })
+
+def machine_z_page(request):
+
+    grb_name = request.GET.get('grb_name', "")
+
+    key_map_df = pandas.read_csv(feature_key_map)
+    key_map_header = key_map_df.columns
+    measurement_data = []
+
+    for index, row in key_map_df.iterrows():
+        #print row[key_map_header[0]], row[key_map_header[1]], row[key_map_header[2]]
+        measurement_row = []
+        measurement_row.append(row[key_map_header[0]])  # feature name
+        measurement_row.append(row[key_map_header[2]])  # value
+        measurement_row.append(str(row[key_map_header[1]]).strip()) # key
+        measurement_row.append(row[key_map_header[3]])  # used in machine-z
+        measurement_row.append(row[key_map_header[4]])  # used in high-z classifier
+        if row[key_map_header[3]] == 0 and row[key_map_header[4]] == 0:
+            measurement_row.append(0)  # don't show the row
+        else:
+            measurement_row.append(1)  # show the row
+        measurement_data.append(measurement_row)
+
+    #import ipdb; ipdb.set_trace() # debugging code
+
+    show_highz = 0
+    highz_results = []
+    feature_list = []
+    for measurement_item in measurement_data:
+        feature = float(request.GET.get(measurement_item[2], -1000.0))
+        #import ipdb; ipdb.set_trace() # debugging code
+        measurement_item[1] = feature
+        feature_list.append(feature)
+        if feature > -1000.0:
+            show_highz = 1
+
+    if show_highz > 0:
+        feature_list = np.array(feature_list)
+        highz_results = machinez.get_highz_information(feature_list)
+
+    #import ipdb; ipdb.set_trace() # debugging code
+
+    return render_to_response('machine_z_page.html', {'grb_name': grb_name,
+                                                      'measurement_data': measurement_data,
+                                                      'highz_results': highz_results,
+                                                      'show_highz': show_highz,
     })
 
 # This is an example code
@@ -1200,4 +1257,5 @@ def plot(request):
     response=HttpResponse(content_type='image/png')
     canvas.print_png(response)
     return response
+
 

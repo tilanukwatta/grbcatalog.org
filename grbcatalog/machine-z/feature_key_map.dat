@@ -1,0 +1,26 @@
+Feature, Key, Value, Machine_z, high_z_classifier
+BAT T90 [sec], T90, 80.0, 1, 0
+BAT Fluence (15-150 keV) [10^-7 erg/cm^2], Fluence, 1.5e-6, 1, 0
+BAT 1-sec Peak Photon Flux (15-150 keV) [ph/cm^2/sec], 1sPeakPhotonFlux, -1000, 1, 0
+BAT Photon Index, PhotonIndex, 1.83, 0, 0
+"CPL=1, PL=0", C_PL, 0, 1, 1
+XRT Early Flux (0.3-10 keV) [10^-11 erg/cm^2/s], XRTEarlyFlux, 607.0, 1, 1
+XRT 11 Hour Flux (0.3-10 keV) [10^-11 erg/cm^2/s], XRT11HourFlux,0.131181966, 0, 0
+XRT 24 Hour Flux (0.3-10 keV) [10^-11 erg/cm^2/s], XRT24HourFlux,0.083225016, 0, 0
+XRT Initial Temporal Index, XRTTemporalIndex, -5.7, 0, 0
+XRT Spectral Index (Gamma), XRTSpectralIndex, 1.81, 1, 1
+XRT Column Density (NH) [10^21 cm^-2], NH, 41.0, 0, 1
+V Mag, VMagVal, 18.8, 0, 0
+V Mag=1 Limit=0, VMagLimit, 0, 1, 1
+B Mag, BMagVal, 20.6, 0, 0
+B Mag=1 Limit=0, BMagLimit, 0, 0, 1
+UVW1 Mag, UVW1MagVal, 20.4, 0, 0
+UVW1 Mag=1 Limit=0, UVW1MagLimit, 0, 1, 0
+UVM2 Mag, UVM2MagVal, 19.1, 0, 0
+UVM2 Mag=1 Limit=0, UVM2MagLimit, 0, 1, 0
+UVW2 Mag, UVW2MagVal, 20.4, 0, 0
+UVW2 Mag=1 Limit=0, UVW2MagLimit, 0, 1, 1
+U Mag, UMagVal, 20.4, 0, 0
+U Mag=1 Limit=0, UMagLimit, 0, 0, 0
+White Mag, WhiteMagVal, 20.5, 0, 0
+White Mag=1 Limit=0, WhiteMagLimit, 0, 1, 1

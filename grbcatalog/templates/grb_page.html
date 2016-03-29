@@ -15,12 +15,14 @@
     <tr class='table_title'>
         <th>Measurement</th>
         <th>Value</th>
+        <th>Units</th>
         <th></th>
     </tr>
     {% for item in measurement_data %}
     <tr class={% cycle 'row1' 'row2' %}>
         <td class="td_style">{{ item.0 }}</td>
         <td class="td_style">{{ item.1 }}</td>
+        <td class="td_style">{{ item.3 }}</td>
         <td class="td_style"><a href="{%url 'grb_main_page'%}admin/grb/measurement/{{item.2}}/" class="button2" target="_blank">Modify</a></td>
     </tr>
     {% endfor %}

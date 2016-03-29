@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+
+{% block title %}grbcatalog.org Machine z{% endblock %}
+
+{% block reload %}  {% endblock %}
+
+{% block content %}
+
+<div id="machinez_container">
+
+
+
+{% if grb_name %}
+<h2>Machine-z ({{ grb_name }})</h2>
+{% else %}
+<h2>Machine-z</h2>
+{% endif %}
+
+<hr>
+
+<form action="{%url 'machine_z_page'%}">
+        <p>Enter GRB Measurements</p>
+
+        <table class='table_style'>
+            <tr class='table_title'>
+                <th>Measurement</th>
+                <th>Key</th>
+                <th>Machine-z Feature</th>
+                <th>Classifier Feature</th>
+                <th>Value</th>
+            </tr>
+            {% for item in measurement_data %}
+            {% if item.5 == 1 %}
+            <tr class={% cycle 'row1' 'row2' %}>
+                <td class="td_style">{{ item.0 }}</td>
+                <td class="td_style">{{ item.2 }}</td>
+                {% if item.3 == 1 %}
+                <td class="td_style">Yes</td>
+                {% else %}
+                <td class="td_style">No</td>
+                {% endif %}
+                {% if item.4 == 1 %}
+                <td class="td_style">Yes</td>
+                {% else %}
+                <td class="td_style">No</td>
+                {% endif %}
+                <td class="td_style"><input type="text" class="input" name="{{ item.2 }}" value="{{ item.1 }}"></td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+        </table>
+        <p></p>
+        <p>
+        <input type="submit" class="button" value="Calculate High-z Classification">
+        </p>
+</form>
+
+<hr>
+<p>
+<a href="{%url 'machine_z_page'%}?grb_name=GRB 151112A&T90=19.32&Fluence=9.4&1sPeakPhotonFlux=1.9&PhotonIndex=1.77&C_PL=0&XRTEarlyFlux=-1000.0&XRT11HourFlux=0.13372476&XRT24HourFlux=0.087159397&XRTTemporalIndex=-0.5487&XRTSpectralIndex=2.21066&NH=1.067334&VMagVal=20.2&VMagLimit=0&BMagVal=21.1&BMagLimit=0&UVW1MagVal=21.4&UVW1MagLimit=0&UVM2MagVal=21.3&UVM2MagLimit=0&UVW2MagVal=-1000.0&UVW2MagLimit=-1000.0&UMagVal=21.5&UMagLimit=0&WhiteMagVal=21.8&WhiteMagLimit=0" class="button">GRB 151112A</a>
+<a href="{%url 'machine_z_page'%}?grb_name=GRB 151027B&T90=80.0&Fluence=15.0&1sPeakPhotonFlux=-1000.0&PhotonIndex=1.83&C_PL=0&XRTEarlyFlux=53.7&XRT11HourFlux=0.160238208&XRT24HourFlux=0.062630016&XRTTemporalIndex=-5.787&XRTSpectralIndex=1.81176&NH=41.4649&VMagVal=20.8&VMagLimit=1&BMagVal=20.6&BMagLimit=0&UVW1MagVal=20.4&UVW1MagLimit=0&UVM2MagVal=19.1&UVM2MagLimit=0&UVW2MagVal=19.9&UVW2MagLimit=0&UMagVal=20.4&UMagLimit=0&WhiteMagVal=20.5&WhiteMagLimit=0" class="button">GRB 151027B</a>
+</p>
+<hr>
+
+{% if show_highz == 1 %}
+
+<p>
+Machine-z: {{ highz_results.0|floatformat }} +/- {{ highz_results.1|floatformat }}
+</p>
+
+<p>
+{% if highz_results.2 == 1 %}
+High-z Classifier: This burst is high-z (z > 4)
+{% else %}
+High-z Classifier: This burst is low-z (z < 4)
+{% endif %}
+</p>
+
+<p>
+If you have resources to follow-up only <{{ highz_results.3|floatformat }}% of the GRBs then observe this event.
+</p>
+
+<hr>
+
+{% endif %}
+
+<h2>High-z Classifier Performance</h2>
+
+{% load staticfiles %}
+<img src="{% static "machine-z/roc_curve.png" %}" width="800" align="middle" alt="Plot Loading... Please wait...">
+<p>
+The receiver operating characteristic (ROC) curve for the high-z classifier using the best 8 features.
+</p>
+
+{% load staticfiles %}
+<img src="{% static "machine-z/high-z_classification_plot.png" %}" width="800" align="middle" alt="Plot Loading... Please wait...">
+<p>
+Performance curves for high-z classifier. The top panel (a) compares the fraction of bursts recommended for follow up
+and the fraction requested from the classifier. The middle panel (b)
+shows the purity of the burst sample selected for follow-up (the fraction of
+bursts that were followed up that are actually at high redshift). The
+bottom panel (c) shows the efficiently of the classifier (the fraction
+of all high-redshift bursts that were followed up).
+</p>
+<hr>
+
+<h2>Machine-z Performance</h2>
+
+{% load staticfiles %}
+<img src="{% static "machine-z/almost_all_correlation_corrected.png" %}" width="800" align="middle" alt="Plot Loading... Please wait...">
+<p>
+Comparison of corrected machine-z predictions with true redshift.
+The correlation coefficient between the two quantities is 0.57.
+</p>
+
+{% load staticfiles %}
+<img src="{% static "machine-z/almost_all_histogram.png" %}" width="800" align="middle" alt="Plot Loading... Please wait...">
+<p>
+Distribution of relative differences between
+machine-z predictions and true redshifts.
+</p>
+<hr>
+
+<p>
+Please see the following publication for more details on machine-z and the high-z classifier.
+</p>
+
+<p>
+<a href="http://arxiv.org/abs/1512.07671" class="button2" target="_blank">Machine-z: Rapid Machine Learned Redshift Indicator for Swift Gamma-ray Bursts</a>
+</p>
+
+<hr>
+
+<p>
+    <a href="{%url 'grb_main_page'%}" class="button">Go to grbcatalog.org</a>
+</p>
+
+<p></p>
+
+</div><!--machinez_container-->
+
+{% endblock %}
+
+{% block footer%}
+
+grbcatalog.org
+
+{% endblock%}
