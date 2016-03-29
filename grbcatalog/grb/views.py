@@ -23,14 +23,14 @@ import pandas
 import grbcatalog.machinez as machinez
 import numpy as np
 
-grb_data_file = '/home/tilan/Desktop/Dropbox/django/grbcatalog/grbcatalog/grb_data.dat'
-#grb_data_file = '/web_app/grbcatalog/grbcatalog/grb_data.dat'
+#grb_data_file = '/home/tilan/Desktop/Dropbox/django/grbcatalog/grbcatalog/grb_data.dat'
+grb_data_file = '/web_app/grbcatalog/grbcatalog/grb_data.dat'
 
-machine_z_data_file = '/home/tilan/Desktop/Dropbox/django/grbcatalog/grbcatalog/machine-z/grb_data_sample_num_284_f25.csv'
-#machine_z_data_file = '/web_app/grbcatalog/grbcatalog/machine-z/grb_data_sample_num_284_f25.csv'
+#machine_z_data_file = '/home/tilan/Desktop/Dropbox/django/grbcatalog/grbcatalog/machine-z/grb_data_sample_num_284_f25.csv'
+machine_z_data_file = '/web_app/grbcatalog/grbcatalog/machine-z/grb_data_sample_num_284_f25.csv'
 
-feature_key_map = '/home/tilan/Desktop/Dropbox/django/grbcatalog/grbcatalog/machine-z/feature_key_map.dat'
-#feature_key_map = '/web_app/grbcatalog/grbcatalog/machine-z/feature_key_map.dat'
+#feature_key_map = '/home/tilan/Desktop/Dropbox/django/grbcatalog/grbcatalog/machine-z/feature_key_map.dat'
+feature_key_map = '/web_app/grbcatalog/grbcatalog/machine-z/feature_key_map.dat'
 
 def get_set_intersection(set1, set2):
     set3 = []
