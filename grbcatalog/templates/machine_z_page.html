@@ -57,6 +57,11 @@
 
 <hr>
 <p>
+Historical High-z GRBs. Click a GRB to load features and calculate machine-z and the high-z classification.
+</p>
+<p>
+<a href="{%url 'machine_z_page'%}?grb_name=GRB 080913&T90=8.0&Fluence=5.6&1sPeakPhotonFlux=1.4&C_PL=1.0&XRTEarlyFlux=-1000.0&XRTSpectralIndex=1.70843&NH=0.894847&VMagLimit=0.0&BMagLimit=0.0&UVW1MagLimit=0.0&UVM2MagLimit=0.0&UVW2MagLimit=0.0&WhiteMagLimit=0.0" class="button">GRB 080913</a>
+<a href="{%url 'machine_z_page'%}?grb_name=GRB 090423&T90=10.3&Fluence=5.9&1sPeakPhotonFlux=1.7&C_PL=1.0&XRTEarlyFlux=-1000.0&XRTSpectralIndex=1.8158&NH=56.4459&VMagLimit=0.0&BMagLimit=0.0&UVW1MagLimit=0.0&UVM2MagLimit=0.0&UVW2MagLimit=0.0&WhiteMagLimit=0.0" class="button">GRB 090423</a>
 <a href="{%url 'machine_z_page'%}?grb_name=GRB 151112A&T90=19.32&Fluence=9.4&1sPeakPhotonFlux=1.9&PhotonIndex=1.77&C_PL=0&XRTEarlyFlux=-1000.0&XRT11HourFlux=0.13372476&XRT24HourFlux=0.087159397&XRTTemporalIndex=-0.5487&XRTSpectralIndex=2.21066&NH=1.067334&VMagVal=20.2&VMagLimit=0&BMagVal=21.1&BMagLimit=0&UVW1MagVal=21.4&UVW1MagLimit=0&UVM2MagVal=21.3&UVM2MagLimit=0&UVW2MagVal=-1000.0&UVW2MagLimit=-1000.0&UMagVal=21.5&UMagLimit=0&WhiteMagVal=21.8&WhiteMagLimit=0" class="button">GRB 151112A</a>
 <a href="{%url 'machine_z_page'%}?grb_name=GRB 151027B&T90=80.0&Fluence=15.0&1sPeakPhotonFlux=-1000.0&PhotonIndex=1.83&C_PL=0&XRTEarlyFlux=53.7&XRT11HourFlux=0.160238208&XRT24HourFlux=0.062630016&XRTTemporalIndex=-5.787&XRTSpectralIndex=1.81176&NH=41.4649&VMagVal=20.8&VMagLimit=1&BMagVal=20.6&BMagLimit=0&UVW1MagVal=20.4&UVW1MagLimit=0&UVM2MagVal=19.1&UVM2MagLimit=0&UVW2MagVal=19.9&UVW2MagLimit=0&UMagVal=20.4&UMagLimit=0&WhiteMagVal=20.5&WhiteMagLimit=0" class="button">GRB 151027B</a>
 </p>
@@ -80,6 +85,13 @@ High-z Classifier: This burst is low-z (z < 4)
 If you have resources to follow-up only <{{ highz_results.3|floatformat }}% of the GRBs then observe this event.
 </p>
 
+<hr>
+
+{% else %}
+
+<p>
+Please note machine-z and high-z classification may take few minutes to calculate.
+</p>
 <hr>
 
 {% endif %}

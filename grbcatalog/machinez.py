@@ -15,12 +15,15 @@ import shutil
 import os
 import random
 from scipy.stats import rankdata
+import grbcatalog.secrets as secrets
+
+if secrets.site == 'local':
+    machine_z_data_file = '/home/tilan/Desktop/Dropbox/django/grbcatalog/grbcatalog/machine-z/grb_data_sample_num_284_f25.csv'
+else:
+    machine_z_data_file = '/web_app/grbcatalog/grbcatalog/machine-z/grb_data_sample_num_284_f25.csv'
 
 cpath = os.getcwd() + '/'
 missing_val = -1000.0
-
-#machine_z_data_file = '/home/tilan/Desktop/Dropbox/django/grbcatalog/grbcatalog/machine-z/grb_data_sample_num_284_f25.csv'
-machine_z_data_file = '/web_app/grbcatalog/grbcatalog/machine-z/grb_data_sample_num_284_f25.csv'
 
 def func(x, c, m):
     return c + m * x
