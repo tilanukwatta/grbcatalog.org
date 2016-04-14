@@ -85,7 +85,7 @@
 <p>
     <a href="{%url 'gpose_sim_plot'%}?title={{title}}&x_label={{x_label}}&y_label={{y_label}}&y_min={{y_min}}&y_max={{y_max}}&x_min={{x_min}}&x_max={{x_max}}&x_log={{x_log}}&y_log={{y_log}}
 {% for item in sim_parameters %}&{{item.2}}={{item.3}}{% endfor %}&plot_type=pdf&scale={{scale}}" class="button">Save as PDF</a>
-    <a href="{%url 'grb_main_page'%}?plot_type=text&x_year_min={{x_year_min}}&x_month_min={{x_month_min}}&x_day_min={{x_day_min}}&x_hour_min={{x_hour_min}}&x_min_min={{x_min_min}}&x_sec_min={{x_sec_min}}&x_year_max={{x_year_max}}&x_month_max={{x_month_max}}&x_day_max={{x_day_max}}&x_hour_max={{x_hour_max}}&x_min_max={{x_min_max}}&x_sec_max={{x_sec_max}}{% for cuts in cut_array %}&{{cuts.0}}={{cuts.3}}&{{cuts.1}}={{cuts.5}}&{{cuts.2}}={{cuts.4}}{% endfor %}&num_cuts={{num_cuts}}&no_date_cut={{no_date_cut}}" class="button">Go to grbcatalog.org</a>
+    <a href="{%url 'grb_main_page'%}" class="button">Go to grbcatalog.org</a>
 </p>
 
 <p></p>
