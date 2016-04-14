@@ -63,6 +63,22 @@ padding: 500;
 margin-right: 5%;*/
 }
 
+#gpose_container {
+background:white; /*url(back.jpg) repeat;*/
+color:black;
+border: 2px solid blue;
+width: 1200px;
+margin: auto;
+/*
+margin: auto;
+border-right: 1px solid #000;
+border-left: 1px solid #000;
+padding: 500;
+*/
+/*margin-left: 5%;
+margin-right: 5%;*/
+}
+
 #grb_container {
 background:white; /*url(back.jpg) repeat;*/
 color:black;

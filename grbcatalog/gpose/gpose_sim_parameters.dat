@@ -1,0 +1,9 @@
+Parameter, Units, Key, Value
+Sky Background, mag/arcsec^2 in V (551 nm), sky_background, 21.5
+Telescope FoV, deg^2, telescope_fov, 0.85
+Telescope Radius, inch, telescope_radius, 3.0
+Qunatum Efficiency, None, gap_efficiency, 0.4
+GRB 01, Mag, grb_mag1, 14
+GRB 02, Mag, grb_mag2, 13
+GRB 03, Mag, grb_mag3, 12
+GRB 04, Mag, grb_mag4, 11

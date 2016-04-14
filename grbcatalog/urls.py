@@ -24,6 +24,8 @@ urlpatterns = patterns('',
     url(r'^help_page$', 'grbcatalog.grb.views.help_page', name='help_page'),
     url(r'^grb_page$', 'grbcatalog.grb.views.grb_page', name='grb_page'),
     url(r'^machine-z$', 'grbcatalog.grb.views.machine_z_page', name='machine_z_page'),
+    url(r'^gpose_sim$', 'grbcatalog.grb.views.gpose_sim_page', name='gpose_sim_page'),
+    url(r'^gpose_sim_plot$', 'grbcatalog.grb.views.gpose_sim_plot', name='gpose_sim_plot'),
     # Examples:
     # url(r'^$', 'grbcatalog.views.home', name='home'),
     # url(r'^grbcatalog/', include('grbcatalog.foo.urls')),

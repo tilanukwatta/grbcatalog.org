@@ -12,6 +12,7 @@ from datetime import date
 import math
 from django.shortcuts import render_to_response
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+from matplotlib.backends.backend_pdf import FigureCanvasPdf as PdfFigureCanvas
 from matplotlib.figure import Figure
 from django.utils.timezone import datetime
 from datetime import timedelta
@@ -21,6 +22,7 @@ import cPickle
 import grbcatalog.data_statistics as ds
 import pandas
 import grbcatalog.machinez as machinez
+import grbcatalog.gpose_analysis as gpose
 import numpy as np
 import grbcatalog.secrets as secrets
 
@@ -28,10 +30,12 @@ if secrets.site == 'local':
     grb_data_file = '/home/tilan/Desktop/Dropbox/django/grbcatalog/grbcatalog/grb_data.dat'
     machine_z_data_file = '/home/tilan/Desktop/Dropbox/django/grbcatalog/grbcatalog/machine-z/grb_data_sample_num_284_f25.csv'
     feature_key_map = '/home/tilan/Desktop/Dropbox/django/grbcatalog/grbcatalog/machine-z/feature_key_map.dat'
+    gpose_sim_parameters = '/home/tilan/Desktop/Dropbox/django/grbcatalog/grbcatalog/gpose/gpose_sim_parameters.dat'
 else:
     grb_data_file = '/web_app/grbcatalog/grbcatalog/grb_data.dat'
     machine_z_data_file = '/web_app/grbcatalog/grbcatalog/machine-z/grb_data_sample_num_284_f25.csv'
     feature_key_map = '/web_app/grbcatalog/grbcatalog/machine-z/feature_key_map.dat'
+    gpose_sim_parameters = '/web_app/grbcatalog/grbcatalog/gpose/gpose_sim_parameters.dat'
 
 def get_set_intersection(set1, set2):
     set3 = []
@@ -635,6 +639,7 @@ def histo(request):
         response['Content-Disposition'] = 'attachment; filename="histo.pdf"'
         #response=django.http.HttpResponse(content_type='image/pdf')
         #response=['Content-Disposition'] = 'attachment; filename=plot.pdf'
+        canvas = PdfFigureCanvas(fig)
         canvas.print_pdf(response)
 
 
@@ -872,6 +877,7 @@ def corr_plot(request):
         response['Content-Disposition'] = 'attachment; filename="histo.pdf"'
         #response=django.http.HttpResponse(content_type='image/pdf')
         #response=['Content-Disposition'] = 'attachment; filename=plot.pdf'
+        canvas = PdfFigureCanvas(fig)
         canvas.print_pdf(response)
 
 
@@ -1098,7 +1104,7 @@ def plot_3d(request):
         verticalalignment='center',
         transform = ax.transAxes)
 
-    canvas=FigureCanvas(fig)
+    canvas = FigureCanvas(fig)
 
     if plot_type == 'png':
         response=HttpResponse(content_type='image/png')
@@ -1109,6 +1115,7 @@ def plot_3d(request):
         response['Content-Disposition'] = 'attachment; filename="histo.pdf"'
         #response=django.http.HttpResponse(content_type='image/pdf')
         #response=['Content-Disposition'] = 'attachment; filename=plot.pdf'
+        canvas = PdfFigureCanvas(fig)
         canvas.print_pdf(response)
 
 
@@ -1218,6 +1225,210 @@ def machine_z_page(request):
                                                       'highz_results': highz_results,
                                                       'show_highz': show_highz,
     })
+
+
+def gpose_sim_page(request):
+
+    gpose_para_df = pandas.read_csv(gpose_sim_parameters)
+    gpose_para_header = gpose_para_df.columns
+    sim_parameters = []
+
+    for index, row in gpose_para_df.iterrows():
+        #print row[key_map_header[0]], row[key_map_header[1]], row[key_map_header[2]]
+        sim_parameters_row = []
+        sim_parameters_row.append(row[gpose_para_header[0]])  # para name
+        sim_parameters_row.append(row[gpose_para_header[1]])  # units
+        key = str(row[gpose_para_header[2]]).strip()
+        sim_parameters_row.append(key)  # key
+        para_val = float(request.GET.get(key, row[gpose_para_header[3]]))
+        sim_parameters_row.append(para_val)  # para value
+        sim_parameters.append(sim_parameters_row)
+
+    x_min = request.GET.get('x_min',0)
+    x_max = request.GET.get('x_max',0)
+    y_min = request.GET.get('y_min',0)
+    y_max = request.GET.get('y_max',0)
+    x_log = request.GET.get('x_log', 'False')
+    y_log = request.GET.get('y_log', 'False')
+    scale = request.GET.get('scale', '1.0')
+
+    c_label = request.GET.get('c_label', "False")
+    if c_label == "True":
+        x_label = request.GET.get('x_label', 'Time (sec)')
+        y_label = request.GET.get('y_label', "Count Rate (counts/sec)")
+        title = request.GET.get('title', 'GPOSE Light Curves')
+    else:
+        x_label = request.GET.get('x_label', 'Time (sec)')
+        y_label = request.GET.get('y_label', "Count Rate (counts/sec)")
+        if scale != 1.0:
+            y_label = "Count Rate (" + str(scale) + " counts/sec)"
+        title = request.GET.get('title', 'GPOSE Light Curves')
+
+    #import pdb; pdb.set_trace() # debugging code
+
+    return render_to_response('gpose_sim_page.html', {'sim_parameters': sim_parameters,
+                                                     'x_label': x_label,
+                                                     'y_label': y_label,
+                                                     'title': title,
+                                                     'c_label': c_label,
+                                                     'scale': scale,
+                                                     'x_min': x_min,
+                                                     'x_max': x_max,
+                                                     'y_min': y_min,
+                                                     'y_max': y_max,
+                                                     'x_log': x_log,
+                                                     'y_log': y_log,
+    })
+
+
+def gpose_sim_plot(request):
+
+    fig = Figure(figsize=(12, 7), edgecolor='white', facecolor='white')
+    fig.subplots_adjust(top=0.95)
+    fig.subplots_adjust(bottom=0.07)
+    fig.subplots_adjust(left=0.06)
+    fig.subplots_adjust(right=0.98)
+
+    plot_type = request.GET.get('plot_type', 'png')
+
+    gpose_para_df = pandas.read_csv(gpose_sim_parameters)
+    gpose_para_header = gpose_para_df.columns
+    sim_parameters = {}
+
+    for index, row in gpose_para_df.iterrows():
+        #print row[key_map_header[0]], row[key_map_header[1]], row[key_map_header[2]]
+        key = str(row[gpose_para_header[2]]).strip()
+        para_val = float(request.GET.get(key, row[gpose_para_header[3]]))
+        sim_parameters[key] = para_val
+
+    x_log = request.GET.get('x_log', 'False')
+    y_log = request.GET.get('y_log', 'False')
+    scale = float(request.GET.get('scale', '1.0'))
+
+    x_label = request.GET.get('x_label', 'Time (sec)')
+    y_label = request.GET.get('y_label', "Count Rate (" + str(scale) + " counts/sec)")
+    title = request.GET.get('title', 'GPOSE Light Curves')
+
+    #import pdb; pdb.set_trace() # debugging code
+
+    """
+    if x_log == 'True':
+        if len(unit1) > 1:
+            if unit1 != 'None':
+                x_label = 'log ' + request.GET.get('x_label', type_id_01) + ' (' + unit1 + ')'
+            else:
+                x_label = 'log ' + request.GET.get('x_label', type_id_01)
+        else:
+            x_label = 'log ' + request.GET.get('x_label', type_id_01)
+
+    else:
+        if len(unit1) > 1:
+            if unit1 != 'None':
+                x_label = request.GET.get('x_label', type_id_01) + ' (' + unit1 + ')'
+            else:
+                x_label = request.GET.get('x_label', type_id_01)
+        else:
+            x_label = request.GET.get('x_label', type_id_01)
+
+    if y_log == 'True':
+        if len(unit2) > 1:
+            if unit2 != 'None':
+                y_label = 'log ' + request.GET.get('y_label', type_id_02) + ' (' + unit2 + ')'
+            else:
+                y_label = 'log ' + request.GET.get('y_label', type_id_02)
+        else:
+            y_label = 'log ' + request.GET.get('y_label', type_id_02)
+
+    else:
+        if len(unit2) > 1:
+            if unit2 != 'None':
+                y_label = request.GET.get('y_label', type_id_02) + ' (' + unit2 + ')'
+            else:
+                y_label = request.GET.get('y_label', type_id_02)
+        else:
+            y_label = request.GET.get('y_label', type_id_02)
+    """
+
+    sky_background = float(sim_parameters['sky_background'])
+    telescope_fov = float(sim_parameters['telescope_fov'])
+    telescope_radius = float(sim_parameters['telescope_radius'])
+    gap_efficiency = float(sim_parameters['gap_efficiency'])
+
+
+    time1, rate1, rateErr1 = gpose.create_gpose_lightcurve(sim_parameters['grb_mag1'], sky_background, telescope_fov, telescope_radius, gap_efficiency)
+    time2, rate2, rateErr2 = gpose.create_gpose_lightcurve(sim_parameters['grb_mag2'], sky_background, telescope_fov, telescope_radius, gap_efficiency)
+    time3, rate3, rateErr3 = gpose.create_gpose_lightcurve(sim_parameters['grb_mag3'], sky_background, telescope_fov, telescope_radius, gap_efficiency)
+    time4, rate4, rateErr4 = gpose.create_gpose_lightcurve(sim_parameters['grb_mag4'], sky_background, telescope_fov, telescope_radius, gap_efficiency)
+
+    title = request.GET.get('title', 'GPOSE Light Curve')
+
+    ax = fig.add_subplot(111)
+
+    plot_line_color = ['k', 'g', 'r', 'b', 'm', 'y', 'c']
+
+    #y_formatter = matplotlib.ticker.ScalarFormatter(useOffset=False)
+    #ax.yaxis.set_major_formatter(y_formatter)
+
+    ax.plot(time1, rate1/scale, color=plot_line_color[0], linestyle='steps', label="GRB 01 (Mag: " + str(sim_parameters['grb_mag1']) + ")")
+    ax.plot(time2, rate2/scale, color=plot_line_color[1], linestyle='steps', label="GRB 02 (Mag: " + str(sim_parameters['grb_mag2']) + ")")
+    ax.plot(time3, rate3/scale, color=plot_line_color[2], linestyle='steps', label="GRB 03 (Mag: " + str(sim_parameters['grb_mag3']) + ")")
+    ax.plot(time4, rate4/scale, color=plot_line_color[3], linestyle='steps', label="GRB 04 (Mag: " + str(sim_parameters['grb_mag4']) + ")")
+
+    #for k in range(len(x_arr)):
+    #    ax.plot(x_arr[k], y_arr[k]*1.0e-6, color=plot_line_color[k], linestyle='steps', label=label_arr[k])
+
+    ax.legend(loc=0)
+    #import pdb; pdb.set_trace() # debugging code
+
+    x_scale_min = float(request.GET.get('x_min', 0))
+    x_scale_max = float(request.GET.get('x_max', 0))
+    y_scale_min = float(request.GET.get('y_min', 0))
+    y_scale_max = float(request.GET.get('y_max', 0))
+
+    if (x_scale_min < x_scale_max) and (y_scale_min < y_scale_max):
+        #import pdb; pdb.set_trace() # debugging code
+        ax.axis([x_scale_min, x_scale_max, y_scale_min, y_scale_max])
+
+
+    ax.set_xlabel(x_label)
+    ax.set_ylabel(y_label)
+    ax.set_title(title)
+    fig.tight_layout()
+
+    canvas = FigureCanvas(fig)
+
+    if plot_type == 'png':
+        response=HttpResponse(content_type='image/png')
+        canvas.print_png(response)
+
+    if plot_type == 'pdf':
+        response = HttpResponse(mimetype='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename="light_curve.pdf"'
+        #response=django.http.HttpResponse(content_type='image/pdf')
+        #response=['Content-Disposition'] = 'attachment; filename=plot.pdf'
+        #canvas.Canvas(response)
+        canvas = PdfFigureCanvas(fig)
+        canvas.print_pdf(response)
+
+    """
+    if plot_type == 'text':
+        response = HttpResponse(mimetype='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="light_curve.csv"'
+        writer = csv.writer(response)
+        num_points = len(x)
+        if num_points > 0:
+            writer.writerow(['X Values'])
+            for i in range(num_points):
+                writer.writerow([x[i]])
+            writer.writerow(['Y Values'])
+            for i in range(num_points):
+                writer.writerow([y[i]])
+        else:
+            writer.writerow(["No data!"])
+    """
+
+    return response
+
 
 # This is an example code
 def plot(request):
