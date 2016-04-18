@@ -90,6 +90,27 @@
 
 <p></p>
 
+<hr>
+
+<p>Simulation Results</p>
+
+<table class='table_style'>
+    <tr class='table_title'>
+        <th>Parameter</th>
+        <th>Units</th>
+        <th>Value</th>
+    </tr>
+    {% for item in sim_results %}
+    <tr class={% cycle 'row1' 'row2' %}>
+        <td class="td_style">{{ item.0 }}</td>
+        <td class="td_style">{{ item.1 }}</td>
+        <td class="td_style">{{ item.2 }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<hr>
+
 </div><!--corr_container-->
 
 {% endblock %}

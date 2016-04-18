@@ -1,8 +1,12 @@
 Parameter, Units, Key, Value
+Sky Location (RA), degrees, ra, 0.0
+Sky Location (Dec), degrees, dec, 0.0
 Sky Background, mag/arcsec^2 in V (551 nm), sky_background, 21.5
-Telescope FoV, deg^2, telescope_fov, 0.85
-Telescope Radius, inch, telescope_radius, 3.0
-Qunatum Efficiency, None, gap_efficiency, 0.4
+GPOSE FoV Radius, deg, gpose_radius, 60.0
+Number of Telescopes, None, num_telescope, 64
+Number of GAP Channels, None, num_channels, 64
+Telescope Mirror Radius, inch, telescope_radius, 3.0
+GAP Quantum Efficiency, None, gap_efficiency, 0.4
 GRB 01, Mag, grb_mag1, 14
 GRB 02, Mag, grb_mag2, 13
 GRB 03, Mag, grb_mag3, 12

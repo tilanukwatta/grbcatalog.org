@@ -35,8 +35,14 @@ nm2m = 1.0e-9
 inch2m = 0.0254
 
 def get_fov(theta):
+    # Return the solid angle of a cone with apex angle 2 theta, is the area of a spherical cap on a unit sphere.
     theta_rad = theta * math.pi / 180.0
     return 2.0 * math.pi * (1.0 - math.cos(theta_rad))
+
+def get_fov_radius(fov):
+    radius = np.arccos(1.0 - (fov/(2.0 * math.pi)))
+    radius_deg = radius * 180.0 / math.pi
+    return radius_deg
 
 def get_frequency(wavelenght):
     return np.float(c/wavelenght)
@@ -120,9 +126,9 @@ def plot_lightcurve_bar_array(x_arr, y_arr, label_arr, title, xlabel, ylabel, pl
 def read_txt():
     return np.loadtxt(star_catalog)
 
-def create_gpose_lightcurve(grb_mag, sky_background, telescope_fov, telescope_radius, gap_efficiency):
+def create_gpose_lightcurve(grb_mag, sky_background, channel_fov_radius, telescope_radius, gap_efficiency):
 
-    sky_bk_ph_rate = get_photon_rate_from_mag_v(sky_background)*(get_fov(telescope_fov)/get_fov(arcSecToDeg))
+    sky_bk_ph_rate = get_photon_rate_from_mag_v(sky_background)*(get_fov(channel_fov_radius)/get_fov(arcSecToDeg))
     sky_bk_ph_rate_std_dev = np.sqrt(sky_bk_ph_rate)
 
     min_time = 0
@@ -153,7 +159,7 @@ def create_gpose_lightcurve(grb_mag, sky_background, telescope_fov, telescope_ra
     #print "Sky Area: ", np.log10(get_fov(10.0)/get_fov(arcSecToDeg)*np.pi)*2.5
     #print "Star Counts: ", star_counts
 
-    star_counts = (star_counts/get_fov(10.0))*get_fov(telescope_fov)
+    star_counts = (star_counts/get_fov(10.0))*get_fov(channel_fov_radius)
 
     sky_bk_ph_rate = (sky_bk_ph_rate + star_counts) * del_time * gap_efficiency
     sky_bk_ph_rate_std_dev = np.sqrt(sky_bk_ph_rate)
@@ -198,7 +204,6 @@ if __name__ == '__main__':
 
     print 'Number of GAP channels: ', get_fov(7.0)/get_fov(0.85)
 
-
     print "Counts rate (ph/s/m^2) from R=20 star: ", get_photon_rate_from_mag_r(20.0)
 
     print "Counts rate (ph/s/m^2) from V=20 star: ", get_photon_rate_from_mag_v(20.0)
@@ -223,7 +228,7 @@ if __name__ == '__main__':
     print "Counts rate (ph/s/m^2) from R=13 star: ", get_photon_rate_from_mag_r(13.0)
 
 
-    #"""
+    """
     time1, rate1, rateErr1 = create_gpose_lightcurve(14)
     time2, rate2, rateErr2 = create_gpose_lightcurve(13)
     time3, rate3, rateErr3 = create_gpose_lightcurve(12)

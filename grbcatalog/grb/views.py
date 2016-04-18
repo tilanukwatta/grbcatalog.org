@@ -1118,7 +1118,6 @@ def plot_3d(request):
         canvas = PdfFigureCanvas(fig)
         canvas.print_pdf(response)
 
-
     if plot_type == 'text':
         response = HttpResponse(mimetype='text/csv')
         response['Content-Disposition'] = 'attachment; filename="plot.csv"'
@@ -1232,6 +1231,7 @@ def gpose_sim_page(request):
     gpose_para_df = pandas.read_csv(gpose_sim_parameters)
     gpose_para_header = gpose_para_df.columns
     sim_parameters = []
+    sim_parameters_dict = {}
 
     for index, row in gpose_para_df.iterrows():
         #print row[key_map_header[0]], row[key_map_header[1]], row[key_map_header[2]]
@@ -1242,6 +1242,7 @@ def gpose_sim_page(request):
         sim_parameters_row.append(key)  # key
         para_val = float(request.GET.get(key, row[gpose_para_header[3]]))
         sim_parameters_row.append(para_val)  # para value
+        sim_parameters_dict[key] = para_val
         sim_parameters.append(sim_parameters_row)
 
     x_min = request.GET.get('x_min',0)
@@ -1264,9 +1265,24 @@ def gpose_sim_page(request):
             y_label = "Count Rate (" + str(scale) + " counts/sec)"
         title = request.GET.get('title', 'GPOSE Light Curves')
 
-    #import pdb; pdb.set_trace() # debugging code
+    gpose_radius = sim_parameters_dict['gpose_radius']
+    num_telescope = sim_parameters_dict['num_telescope']
+    num_channels = sim_parameters_dict['num_channels']
+    telescope_fov = gpose.get_fov(gpose_radius)/num_telescope
+    telescope_fov_radius = gpose.get_fov_radius(telescope_fov)
+    channel_fov = telescope_fov/num_channels
+    channel_fov_radius = gpose.get_fov_radius(channel_fov)
+
+    sim_results = []
+    sim_results_row = ['Telescope FOV Radius', 'degrees', "%.2f" % telescope_fov_radius]
+    sim_results.append(sim_results_row)
+    sim_results_row = ['Channel FOV Radius', 'degrees', "%.2f" % channel_fov_radius]
+    sim_results.append(sim_results_row)
+
+    #import ipdb; ipdb.set_trace() # debugging code
 
     return render_to_response('gpose_sim_page.html', {'sim_parameters': sim_parameters,
+                                                     'sim_results': sim_results,
                                                      'x_label': x_label,
                                                      'y_label': y_label,
                                                      'title': title,
@@ -1349,16 +1365,22 @@ def gpose_sim_plot(request):
             y_label = request.GET.get('y_label', type_id_02)
     """
 
+    ra = float(sim_parameters['ra'])
+    dec = float(sim_parameters['dec'])
     sky_background = float(sim_parameters['sky_background'])
-    telescope_fov = float(sim_parameters['telescope_fov'])
+    gpose_radius = float(sim_parameters['gpose_radius'])
+    num_telescope = float(sim_parameters['num_telescope'])
+    num_channels = float(sim_parameters['num_channels'])
     telescope_radius = float(sim_parameters['telescope_radius'])
     gap_efficiency = float(sim_parameters['gap_efficiency'])
+    telescope_fov = gpose.get_fov(gpose_radius)/num_telescope
+    channel_fov = telescope_fov/num_channels
+    channel_fov_radius = gpose.get_fov_radius(channel_fov)
 
-
-    time1, rate1, rateErr1 = gpose.create_gpose_lightcurve(sim_parameters['grb_mag1'], sky_background, telescope_fov, telescope_radius, gap_efficiency)
-    time2, rate2, rateErr2 = gpose.create_gpose_lightcurve(sim_parameters['grb_mag2'], sky_background, telescope_fov, telescope_radius, gap_efficiency)
-    time3, rate3, rateErr3 = gpose.create_gpose_lightcurve(sim_parameters['grb_mag3'], sky_background, telescope_fov, telescope_radius, gap_efficiency)
-    time4, rate4, rateErr4 = gpose.create_gpose_lightcurve(sim_parameters['grb_mag4'], sky_background, telescope_fov, telescope_radius, gap_efficiency)
+    time1, rate1, rateErr1 = gpose.create_gpose_lightcurve(sim_parameters['grb_mag1'], sky_background, channel_fov_radius, telescope_radius, gap_efficiency)
+    time2, rate2, rateErr2 = gpose.create_gpose_lightcurve(sim_parameters['grb_mag2'], sky_background, channel_fov_radius, telescope_radius, gap_efficiency)
+    time3, rate3, rateErr3 = gpose.create_gpose_lightcurve(sim_parameters['grb_mag3'], sky_background, channel_fov_radius, telescope_radius, gap_efficiency)
+    time4, rate4, rateErr4 = gpose.create_gpose_lightcurve(sim_parameters['grb_mag4'], sky_background, channel_fov_radius, telescope_radius, gap_efficiency)
 
     title = request.GET.get('title', 'GPOSE Light Curve')
 
@@ -1378,7 +1400,7 @@ def gpose_sim_plot(request):
     #    ax.plot(x_arr[k], y_arr[k]*1.0e-6, color=plot_line_color[k], linestyle='steps', label=label_arr[k])
 
     ax.legend(loc=0)
-    #import pdb; pdb.set_trace() # debugging code
+    #import ipdb; ipdb.set_trace() # debugging code
 
     x_scale_min = float(request.GET.get('x_min', 0))
     x_scale_max = float(request.GET.get('x_max', 0))
