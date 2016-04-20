@@ -1241,6 +1241,8 @@ def gpose_sim_page(request):
         key = str(row[gpose_para_header[2]]).strip()
         sim_parameters_row.append(key)  # key
         para_val = float(request.GET.get(key, row[gpose_para_header[3]]))
+        if key == 'del_time' and para_val > 1.0: # prevent user entering del_time > 1.0
+            para_val = 0.1
         sim_parameters_row.append(para_val)  # para value
         sim_parameters_dict[key] = para_val
         sim_parameters.append(sim_parameters_row)
@@ -1254,6 +1256,7 @@ def gpose_sim_page(request):
     scale = request.GET.get('scale', '1.0')
 
     c_label = request.GET.get('c_label', "False")
+
     if c_label == "True":
         x_label = request.GET.get('x_label', 'Time (sec)')
         y_label = request.GET.get('y_label', "Count Rate (counts/sec)")
@@ -1373,14 +1376,43 @@ def gpose_sim_plot(request):
     num_channels = float(sim_parameters['num_channels'])
     telescope_radius = float(sim_parameters['telescope_radius'])
     gap_efficiency = float(sim_parameters['gap_efficiency'])
+    profile = float(sim_parameters['profile'])
+    del_time = float(sim_parameters['del_time'])
     telescope_fov = gpose.get_fov(gpose_radius)/num_telescope
     channel_fov = telescope_fov/num_channels
     channel_fov_radius = gpose.get_fov_radius(channel_fov)
 
-    time1, rate1, rateErr1 = gpose.create_gpose_lightcurve(sim_parameters['grb_mag1'], sky_background, channel_fov_radius, telescope_radius, gap_efficiency)
-    time2, rate2, rateErr2 = gpose.create_gpose_lightcurve(sim_parameters['grb_mag2'], sky_background, channel_fov_radius, telescope_radius, gap_efficiency)
-    time3, rate3, rateErr3 = gpose.create_gpose_lightcurve(sim_parameters['grb_mag3'], sky_background, channel_fov_radius, telescope_radius, gap_efficiency)
-    time4, rate4, rateErr4 = gpose.create_gpose_lightcurve(sim_parameters['grb_mag4'], sky_background, channel_fov_radius, telescope_radius, gap_efficiency)
+    time1, rate1, rateErr1 = gpose.create_gpose_lightcurve(sim_parameters['grb_mag1'],
+                                                           sky_background,
+                                                           channel_fov_radius,
+                                                           telescope_radius,
+                                                           gap_efficiency,
+                                                           profile,
+                                                           del_time)
+
+    time2, rate2, rateErr2 = gpose.create_gpose_lightcurve(sim_parameters['grb_mag2'],
+                                                           sky_background,
+                                                           channel_fov_radius,
+                                                           telescope_radius,
+                                                           gap_efficiency,
+                                                           profile,
+                                                           del_time)
+
+    time3, rate3, rateErr3 = gpose.create_gpose_lightcurve(sim_parameters['grb_mag3'],
+                                                           sky_background,
+                                                           channel_fov_radius,
+                                                           telescope_radius,
+                                                           gap_efficiency,
+                                                           profile,
+                                                           del_time)
+
+    time4, rate4, rateErr4 = gpose.create_gpose_lightcurve(sim_parameters['grb_mag4'],
+                                                           sky_background,
+                                                           channel_fov_radius,
+                                                           telescope_radius,
+                                                           gap_efficiency,
+                                                           profile,
+                                                           del_time)
 
     title = request.GET.get('title', 'GPOSE Light Curve')
 

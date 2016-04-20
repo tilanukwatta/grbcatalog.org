@@ -9,6 +9,7 @@ import math
 #import time
 #import csv
 #import os
+from scipy.interpolate import interp1d
 import grbcatalog.secrets as secrets
 
 if secrets.site == 'local':
@@ -126,14 +127,13 @@ def plot_lightcurve_bar_array(x_arr, y_arr, label_arr, title, xlabel, ylabel, pl
 def read_txt():
     return np.loadtxt(star_catalog)
 
-def create_gpose_lightcurve(grb_mag, sky_background, channel_fov_radius, telescope_radius, gap_efficiency):
+def create_gpose_lightcurve(grb_mag, sky_background, channel_fov_radius, telescope_radius, gap_efficiency, profile, del_time):
 
     sky_bk_ph_rate = get_photon_rate_from_mag_v(sky_background)*(get_fov(channel_fov_radius)/get_fov(arcSecToDeg))
     sky_bk_ph_rate_std_dev = np.sqrt(sky_bk_ph_rate)
 
     min_time = 0
     max_time = 16
-    del_time = 0.1
 
     #radius = 3 #inch
     area = np.pi * (telescope_radius * inch2m)**2.0
@@ -169,15 +169,32 @@ def create_gpose_lightcurve(grb_mag, sky_background, channel_fov_radius, telesco
 
     # insert GRB prompt optical emission
     index = int(5.0/del_time)
-    #prompt_opt = [-1.0, -0.9, -0.5,  0.0, -0.1,
-    #              -0.6, -0.9, -0.9, -0.5, -0.6,
-    #              -0.8, -0.1,  0.0,  0.0, -0.2,
-    #              -0.3, -0.5, -0.9, -0.9, -1.0]
 
-    prompt_opt = [-3.0, -1.9, -0.5,  0.0, -0.1,
-                  -0.6, -0.9, -0.9, -0.5, -0.6,
-                  -0.8, -0.1,  0.0,  0.0, -0.2,
-                  -0.3, -0.5, -2.9, -2.9, -3.0]
+
+    # 2 second prompt optical profile
+    prompt_opt_profile = [-3.0, -1.9, -0.5,  0.0, -0.1,
+                          -0.6, -0.9, -0.9, -0.5, -0.6,
+                          -0.8, -0.1,  0.0,  0.0, -0.2,
+                          -0.3, -0.5, -2.9, -2.9, -3.0]
+
+    if profile == 2.0:
+        prompt_opt_profile = [-3.0, -2.5, -2.5, -2.0, -2.0,
+                              -1.5, -1.5, -1.0, -1.0, -0.5,
+                              0.0, 0.0,  -0.5, -1.0, -1.0,
+                              -2.0, -2.0, -2.5, -2.5, -3.0]
+
+    if profile == 3.0:
+        prompt_opt_profile = [0.0, -0.5, -0.5, -1.0, -1.0,
+                              -1.5, -1.5, -2.0, -2.5, -2.5,
+                              -2.6, -2.6, -2.6, -2.7, -2.7,
+                              -2.8, -2.8, -2.8, -2.9, -3.0]
+
+    time_opt_profile = np.linspace(0.0, 2.0, num=20, endpoint=True)
+    func = interp1d(time_opt_profile, prompt_opt_profile, kind='cubic')
+
+    time_opt = np.arange(0.0, 2.0, del_time)
+    prompt_opt = func(time_opt)
+    #import ipdb;ipdb.set_trace() # debugging code
 
     for opt in prompt_opt:
         rate[index] = rate[index] + get_photon_rate_from_mag_r(grb_mag - opt) * del_time

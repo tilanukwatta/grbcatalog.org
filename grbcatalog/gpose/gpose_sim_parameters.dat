@@ -11,3 +11,5 @@ GRB 01, Mag, grb_mag1, 14
 GRB 02, Mag, grb_mag2, 13
 GRB 03, Mag, grb_mag3, 12
 GRB 04, Mag, grb_mag4, 11
+LC Time Resolution, Seconds, del_time, 0.1
+"LC Profile (Multi-peak = 1, Single-peak = 2, FRED = 3)", None, profile, 1
