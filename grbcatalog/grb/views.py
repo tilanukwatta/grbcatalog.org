@@ -1271,15 +1271,31 @@ def gpose_sim_page(request):
     gpose_radius = sim_parameters_dict['gpose_radius']
     num_telescope = sim_parameters_dict['num_telescope']
     num_channels = sim_parameters_dict['num_channels']
-    telescope_fov = gpose.get_fov(gpose_radius)/num_telescope
+    gpose_fov = gpose.get_fov(gpose_radius)
+    gpose_fov_deg = gpose_fov * (180.0 / math.pi)**2.0
+    telescope_fov = gpose_fov/num_telescope
+    telescope_fov_deg = telescope_fov * (180.0 / math.pi)**2.0
     telescope_fov_radius = gpose.get_fov_radius(telescope_fov)
     channel_fov = telescope_fov/num_channels
+    channel_fov_deg = channel_fov * (180.0 / math.pi)**2.0
     channel_fov_radius = gpose.get_fov_radius(channel_fov)
 
     sim_results = []
+    sim_results_row = ['GPOSE Observatory FOV', 'square degrees', "%.2f" % gpose_fov_deg]
+    sim_results.append(sim_results_row)
+    sim_results_row = ['GPOSE Observatory FOV', 'steradian', "%.2f" % gpose_fov]
+    sim_results.append(sim_results_row)
     sim_results_row = ['Telescope FOV Radius', 'degrees', "%.2f" % telescope_fov_radius]
     sim_results.append(sim_results_row)
+    sim_results_row = ['Telescope FOV', 'square degrees', "%.2f" % telescope_fov_deg]
+    sim_results.append(sim_results_row)
+    sim_results_row = ['Telescope FOV', 'steradian', "%.3f" % telescope_fov]
+    sim_results.append(sim_results_row)
     sim_results_row = ['Channel FOV Radius', 'degrees', "%.2f" % channel_fov_radius]
+    sim_results.append(sim_results_row)
+    sim_results_row = ['Channel FOV', 'square degrees', "%.2f" % channel_fov_deg]
+    sim_results.append(sim_results_row)
+    sim_results_row = ['Channel FOV', 'steradian', "%.5f" % channel_fov]
     sim_results.append(sim_results_row)
 
     #import ipdb; ipdb.set_trace() # debugging code

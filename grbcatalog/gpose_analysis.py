@@ -40,6 +40,10 @@ def get_fov(theta):
     theta_rad = theta * math.pi / 180.0
     return 2.0 * math.pi * (1.0 - math.cos(theta_rad))
 
+def get_fov_deg(theta):
+    fov_deg = get_fov(theta)
+    return fov_deg * (180.0 / math.pi)**2.0
+
 def get_fov_radius(fov):
     radius = np.arccos(1.0 - (fov/(2.0 * math.pi)))
     radius_deg = radius * 180.0 / math.pi
