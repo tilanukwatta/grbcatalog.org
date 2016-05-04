@@ -23,6 +23,7 @@ import grbcatalog.data_statistics as ds
 import pandas
 import grbcatalog.machinez as machinez
 import grbcatalog.gpose_analysis as gpose
+import grbcatalog.gpose_sky_model as gpose_sky
 import numpy as np
 import grbcatalog.secrets as secrets
 
@@ -1280,6 +1281,15 @@ def gpose_sim_page(request):
     channel_fov_deg = channel_fov * (180.0 / math.pi)**2.0
     channel_fov_radius = gpose.get_fov_radius(channel_fov)
 
+    sky_background = sim_parameters_dict['sky_background']
+    k_V = sim_parameters_dict['k_V']
+    alpha = sim_parameters_dict['alpha']
+    zmoon = sim_parameters_dict['zmoon']
+    z = sim_parameters_dict['z']
+    rho = sim_parameters_dict['rho']
+    bMoon, deltaV = gpose_sky.moonSkyMag(alpha, rho, z, zmoon, k_V, sky_background)
+    bMoonMag = gpose_sky.nanoLambertToMag(bMoon)
+
     sim_results = []
     sim_results_row = ['GPOSE Observatory FOV', 'square degrees', "%.2f" % gpose_fov_deg]
     sim_results.append(sim_results_row)
@@ -1296,6 +1306,11 @@ def gpose_sim_page(request):
     sim_results_row = ['Channel FOV', 'square degrees', "%.2f" % channel_fov_deg]
     sim_results.append(sim_results_row)
     sim_results_row = ['Channel FOV', 'steradian', "%.5f" % channel_fov]
+    sim_results.append(sim_results_row)
+
+    sim_results_row = ['Brightness due to Moon at the Sky Location (V)', 'Mag', "%.5f" % bMoonMag]
+    sim_results.append(sim_results_row)
+    sim_results_row = ['Change in Sky Background due to Moon (V)', 'Mag', "%.5f" % deltaV]
     sim_results.append(sim_results_row)
 
     #import ipdb; ipdb.set_trace() # debugging code
@@ -1387,6 +1402,15 @@ def gpose_sim_plot(request):
     ra = float(sim_parameters['ra'])
     dec = float(sim_parameters['dec'])
     sky_background = float(sim_parameters['sky_background'])
+    k_V = float(sim_parameters['k_V'])
+    alpha = float(sim_parameters['alpha'])
+    zmoon = float(sim_parameters['zmoon'])
+    z = float(sim_parameters['z'])
+    rho = float(sim_parameters['rho'])
+
+    bMoon, deltaV = gpose_sky.moonSkyMag(alpha, rho, z, zmoon, k_V, sky_background)
+    sky_background = sky_background + deltaV  # add the contribution from the moon to the sky background
+
     gpose_radius = float(sim_parameters['gpose_radius'])
     num_telescope = float(sim_parameters['num_telescope'])
     num_channels = float(sim_parameters['num_channels'])
