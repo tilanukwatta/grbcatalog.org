@@ -41,7 +41,7 @@ def scatFuncRayleigh(separ):
     return C_R*(1.06+cosrho**2)  # eq 17
 
 def scatFuncMie(separ):
-    if separ < 10.:
+    if separ > 10.:
         return 10.**(6.15-separ/40.)  # eq 18
     else:
         return 6.2e7/separ**2  # eq 19
@@ -87,7 +87,7 @@ if __name__ == '__main__':
     #separ = numpy.array([5., 30., 60., 90., 120.])
     #phase = numpy.array([0., 30., 60., 90., 120.])
 
-    separ = numpy.array([120.])
+    separ = numpy.array([5.])
     phase = numpy.array([30., 60., 90., 120.])
 
     z_Moon = 60.

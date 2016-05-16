@@ -1287,6 +1287,15 @@ def gpose_sim_page(request):
     zmoon = sim_parameters_dict['zmoon']
     z = sim_parameters_dict['z']
     rho = sim_parameters_dict['rho']
+
+    # correction for the correct angular distance to the moon
+    if np.abs(zmoon-z) > rho:
+        rho = np.abs(zmoon-z)
+        sim_parameters_dict['rho'] = rho
+        for simp in sim_parameters:
+            if simp[2] == 'rho':
+                simp[3] = rho
+
     bMoon, deltaV = gpose_sky.moonSkyMag(alpha, rho, z, zmoon, k_V, sky_background)
     bMoonMag = gpose_sky.nanoLambertToMag(bMoon)
 
