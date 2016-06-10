@@ -225,6 +225,7 @@ def ml_engine(predictors, response, request, ntree = 100, nodesize = 3, mtry = 4
                                 criterion='mse',  # this is the only one available (mse-mean squared error)
                                 min_samples_leaf = nodesize,
                                 max_features = mtry,
+                                n_jobs=-1,
                                 random_state = random_seed)
     #print len(predictors), len(response), len(weights)
     if len(weights) > 0:
@@ -300,7 +301,7 @@ def get_machine_z(request, predictors, response, ntree = 100, nodesize = 3, mtry
     num = len(predictors)
     num_repeat = num
     index = set(range(num))
-    nsim = 100
+    nsim = 10
     x = []
     y = []
     yerr = []
@@ -443,7 +444,7 @@ def get_high_z_classification(request, predictors, response, z_theshold=4.0, ntr
                                         min_samples_leaf=nodesize,
                                         max_features=mtry,
                                         max_depth=3,
-                                        #n_jobs = 6,
+                                        n_jobs = -1,
                                         random_state=random_seed)
 
     # Code to draw the ROC curve
@@ -527,7 +528,7 @@ def ml_engine_score(predictors, response, ntree = 100, nodesize = 3, mtry = 4, r
                                  min_samples_leaf = nodesize,
                                  max_features = mtry,
                                  max_depth=3,
-                                 #n_jobs = 6,
+                                 n_jobs = -1,
                                  random_state = random_seed)
     #printe len(predictors), len(response), len(weights)
     if len(weights) > 0:

@@ -174,7 +174,6 @@ def create_gpose_lightcurve(grb_mag, sky_background, channel_fov_radius, telesco
     # insert GRB prompt optical emission
     index = int(5.0/del_time)
 
-
     # 2 second prompt optical profile
     prompt_opt_profile = [-3.0, -1.9, -0.5,  0.0, -0.1,
                           -0.6, -0.9, -0.9, -0.5, -0.6,
