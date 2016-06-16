@@ -371,7 +371,7 @@ def get_grb_sample(request):
 
     return selected_grb_set, parameters
 
-def grb_main_page(request):
+def select_grb_sample(request):
 
     # get the GRB sample after all the cuts
     grb_set, parameters = get_grb_sample(request)
@@ -458,9 +458,12 @@ def grb_main_page(request):
         grb_data.append(grb_data_row)
 
     number_of_rows = len(grb_data)
-    #print available_types
-    #print available_cut_types
-    #import ipdb; ipdb.set_trace() # debugging code
+
+    return grb_data, grb_table_header, number_of_rows, available_types, available_cut_types, parameters
+
+def grb_main_page(request):
+
+    grb_data, grb_table_header, number_of_rows, available_types, available_cut_types, parameters = select_grb_sample(request)
 
     return render_to_response('grb_main_page.html', {'grb_data':grb_data,
                                                      'grb_table_header':grb_table_header,
@@ -483,6 +486,28 @@ def grb_main_page(request):
                                                      'x_sec_max':parameters[13],
                                                      'cut_array':parameters[14],
     })
+
+def download_data(request):
+
+    grb_data, grb_table_header, number_of_rows, available_types, available_cut_types, parameters = select_grb_sample(request)
+
+    num = len(grb_data)
+
+    #print grb_data
+    #import ipdb; ipdb.set_trace() # debugging code
+
+    response = HttpResponse(mimetype='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="grb_data.csv"'
+    writer = csv.writer(response)
+    if num > 0:
+        writer.writerow(grb_table_header)
+        for row in grb_data:
+            writer.writerow(row)
+    else:
+        writer.writerow(["No data!"])
+
+    return response
+
 
 def histo_page(request):
 

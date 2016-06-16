@@ -15,6 +15,7 @@ grb_info = {
 
 urlpatterns = patterns('',
     url(r'^$', 'grbcatalog.grb.views.grb_main_page', name='grb_main_page'),
+    url(r'^download_data$', 'grbcatalog.grb.views.download_data', name='download_data'),
     url(r'^histo$', 'grbcatalog.grb.views.histo', name='histo'),
     url(r'^histo_page$', 'grbcatalog.grb.views.histo_page', name='histo_page'),
     url(r'^corr_plot$', 'grbcatalog.grb.views.corr_plot', name='corr_plot'),
