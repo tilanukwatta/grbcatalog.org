@@ -493,14 +493,17 @@ def download_data(request):
 
     num = len(grb_data)
 
-    #print grb_data
+    grb_header = []
+    for header_item in grb_table_header:
+        grb_header.append(header_item[0])
+
     #import ipdb; ipdb.set_trace() # debugging code
 
     response = HttpResponse(mimetype='text/csv')
     response['Content-Disposition'] = 'attachment; filename="grb_data.csv"'
     writer = csv.writer(response)
     if num > 0:
-        writer.writerow(grb_table_header)
+        writer.writerow(grb_header)
         for row in grb_data:
             writer.writerow(row)
     else:
