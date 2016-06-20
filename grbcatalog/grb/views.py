@@ -1461,6 +1461,8 @@ def gpose_sim_plot(request):
 
     time1, rate1, rateErr1 = gpose.create_gpose_lightcurve(sim_parameters['grb_mag1'],
                                                            sky_background,
+                                                           ra,
+                                                           dec,
                                                            channel_fov_radius,
                                                            telescope_radius,
                                                            gap_efficiency,
@@ -1469,6 +1471,8 @@ def gpose_sim_plot(request):
 
     time2, rate2, rateErr2 = gpose.create_gpose_lightcurve(sim_parameters['grb_mag2'],
                                                            sky_background,
+                                                           ra,
+                                                           dec,
                                                            channel_fov_radius,
                                                            telescope_radius,
                                                            gap_efficiency,
@@ -1477,6 +1481,8 @@ def gpose_sim_plot(request):
 
     time3, rate3, rateErr3 = gpose.create_gpose_lightcurve(sim_parameters['grb_mag3'],
                                                            sky_background,
+                                                           ra,
+                                                           dec,
                                                            channel_fov_radius,
                                                            telescope_radius,
                                                            gap_efficiency,
@@ -1485,6 +1491,8 @@ def gpose_sim_plot(request):
 
     time4, rate4, rateErr4 = gpose.create_gpose_lightcurve(sim_parameters['grb_mag4'],
                                                            sky_background,
+                                                           ra,
+                                                           dec,
                                                            channel_fov_radius,
                                                            telescope_radius,
                                                            gap_efficiency,

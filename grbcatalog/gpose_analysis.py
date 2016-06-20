@@ -11,11 +11,14 @@ import math
 #import os
 from scipy.interpolate import interp1d
 import grbcatalog.secrets as secrets
+import pandas
 
 if secrets.site == 'local':
     star_catalog = '/home/tilan/Desktop/Dropbox/django/grbcatalog/grbcatalog/gpose/star_catalog.dat'
+    star_photon_counts = '/home/tilan/Desktop/Dropbox/django/grbcatalog/grbcatalog/gpose/star_photon_counts.dat'
 else:
     star_catalog = '/web_app/grbcatalog/grbcatalog/gpose/star_catalog.dat'
+    star_photon_counts = '/web_app/grbcatalog/grbcatalog/gpose/star_photon_counts.dat'
 
 #sky_background = 21.5 # mag/arcsec^2 in V (551 nm)
 #telescope_fov = 0.85
@@ -131,7 +134,23 @@ def plot_lightcurve_bar_array(x_arr, y_arr, label_arr, title, xlabel, ylabel, pl
 def read_txt():
     return np.loadtxt(star_catalog)
 
-def create_gpose_lightcurve(grb_mag, sky_background, channel_fov_radius, telescope_radius, gap_efficiency, profile, del_time):
+def get_photon_background_due_to_stars(ra, dec, channel_fov_radius):
+
+    ph_cts = pandas.read_csv(star_photon_counts, names=['ra', 'dec', 'ph_cts', 'ph_cts_arc_sec2'])
+
+    ra_ = int(round(round(ra)/5)*5)
+    dec_ = int(round(round(dec)/5)*5)
+    queryStr = "ra==" + str(ra_) + " and dec==" + str(dec_)
+
+    star_counts = ph_cts.query(queryStr)['ph_cts'].values[0]
+    grid_fov_radius = 2.82  # this value will give fov of ~25 square degrees
+    star_counts = (star_counts/get_fov(grid_fov_radius))*get_fov(channel_fov_radius)
+
+    #import ipdb;ipdb.set_trace() # debugging code
+
+    return star_counts
+
+def create_gpose_lightcurve(grb_mag, sky_background, ra, dec, channel_fov_radius, telescope_radius, gap_efficiency, profile, del_time):
 
     sky_bk_ph_rate = get_photon_rate_from_mag_v(sky_background)*(get_fov(channel_fov_radius)/get_fov(arcSecToDeg))
     sky_bk_ph_rate_std_dev = np.sqrt(sky_bk_ph_rate)
@@ -144,7 +163,7 @@ def create_gpose_lightcurve(grb_mag, sky_background, channel_fov_radius, telesco
 
     time = np.arange(min_time, max_time, del_time)
 
-    #"""
+    """
     # insert background stars
     star_num = 0
     max_mag = 6
@@ -162,12 +181,14 @@ def create_gpose_lightcurve(grb_mag, sky_background, channel_fov_radius, telesco
     #print "Total count: ", -2.5 * np.log10((10**(-0.4*star_arr)).sum())
     #print "Sky Area: ", np.log10(get_fov(10.0)/get_fov(arcSecToDeg)*np.pi)*2.5
     #print "Star Counts: ", star_counts
-
     star_counts = (star_counts/get_fov(10.0))*get_fov(channel_fov_radius)
+    """
+
+    # get the photon background from stars at given ra, dec in the V band
+    star_counts = get_photon_background_due_to_stars(ra, dec, channel_fov_radius)
 
     sky_bk_ph_rate = (sky_bk_ph_rate + star_counts) * del_time * gap_efficiency
     sky_bk_ph_rate_std_dev = np.sqrt(sky_bk_ph_rate)
-    #"""
 
     rate = sky_bk_ph_rate + np.random.randn(len(time)) * sky_bk_ph_rate_std_dev
 
