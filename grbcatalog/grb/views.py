@@ -1513,6 +1513,8 @@ def gpose_sim_plot(request):
     ax.plot(time3, rate3/scale, color=plot_line_color[2], linestyle='steps', label="GRB 03 (Mag: " + str(sim_parameters['grb_mag3']) + ")")
     ax.plot(time4, rate4/scale, color=plot_line_color[3], linestyle='steps', label="GRB 04 (Mag: " + str(sim_parameters['grb_mag4']) + ")")
 
+    #ax.errorbar(time4, rate4, yerr=rateErr4, fmt='o')
+
     #for k in range(len(x_arr)):
     #    ax.plot(x_arr[k], y_arr[k]*1.0e-6, color=plot_line_color[k], linestyle='steps', label=label_arr[k])
 
