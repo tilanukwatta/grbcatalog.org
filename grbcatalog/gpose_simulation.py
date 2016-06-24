@@ -23,6 +23,7 @@ from datetime import datetime
 from datetime import timedelta
 import numpy.random as rand
 from matplotlib.backends.backend_pdf import PdfPages
+import sqlite3
 
 efficiency = 0.4
 
@@ -74,6 +75,24 @@ def get_grb_info(grb_number):
         grb_list.append(row)
 
     return grb_list
+
+def save_to_database():
+
+    conn = sqlite3.connect(cpath + "arxiv_papers.sqlite.db")
+    c = conn.cursor()
+
+    c.execute('CREATE TABLE IF NOT EXISTS arxiv_papers (url TEXT UNIQUE, title TEXT, authors TEXT, abstract TEXT)')
+
+    rowStr = '"' + str(url) + '", "' + str(title) + '", "' + str(authors) + '", "' + str(abstract) + '" '
+
+    #print 'INSERT INTO arxiv_papers VALUES (' + rowStr + ')'
+
+    c.execute('INSERT INTO arxiv_papers VALUES (' + rowStr + ')')
+
+
+    conn.commit()
+    #c.execute('CREATE INDEX IF NOT EXISTS star_catalog_ra_decl_magV_idx ON star_catalog (ra, decl, magV);')
+    conn.close()
 
 
 if __name__ == '__main__':
@@ -148,18 +167,19 @@ if __name__ == '__main__':
             else:
                 sky_background = sky_background_site
 
-            if zsun > 90:  # night time at GPOSE observatory
+            if zsun > 96:  # night time at GPOSE observatory
                 print "Night time...."
-                if not z < 90:  # GRB is visible at the GPOSE observatory
+                if not z < 80:  # GRB is visible at the GPOSE observatory
                     print "Night time, GRB is visible...."
                     #"""
                     gpose_radius = 60.0
                     num_telescope = 64
                     num_channels = 64
-                    telescope_radius = 3.0  #inch
+                    telescope_radius = 5.0  #inch
                     gap_efficiency = 0.4
                     profile = 1.0
                     del_time = 0.1
+                    t90 = 2.0
                     #del_time = 0.01
                     telescope_fov = gpose.get_fov(gpose_radius)/num_telescope
                     channel_fov = telescope_fov/num_channels
@@ -178,12 +198,14 @@ if __name__ == '__main__':
                                                                            telescope_radius,
                                                                            gap_efficiency,
                                                                            profile,
-                                                                           del_time)
+                                                                           del_time,
+                                                                           t90=t90)
 
-                    rate = rate1 - rate1.mean()
+                    rate = rate1 - np.median(rate1) # use meadian
                     rateSig = rate/rateErr1
                     maxSig = max(rateSig)
 
+                    #"""
                     plt.plot(time1, rate1)
                     plt.errorbar(time1, rate1, yerr=rateErr1, ecolor='black', fmt='o')
                     plt.title('Maximum significance: ' + str(round(maxSig, 3)))

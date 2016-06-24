@@ -150,7 +150,7 @@ def get_photon_background_due_to_stars(ra, dec, channel_fov_radius):
 
     return star_counts
 
-def create_gpose_lightcurve(grb_mag, sky_background, ra, dec, channel_fov_radius, telescope_radius, gap_efficiency, profile, del_time):
+def create_gpose_lightcurve(grb_mag, sky_background, ra, dec, channel_fov_radius, telescope_radius, gap_efficiency, profile, del_time, t90=2.0):
 
     sky_bk_ph_rate = get_photon_rate_from_mag_v(sky_background)*(get_fov(channel_fov_radius)/get_fov(arcSecToDeg))
     sky_bk_ph_rate_std_dev = np.sqrt(sky_bk_ph_rate)
@@ -195,7 +195,7 @@ def create_gpose_lightcurve(grb_mag, sky_background, ra, dec, channel_fov_radius
     # insert GRB prompt optical emission
     index = int(5.0/del_time)
 
-    # 2 second prompt optical profile
+    # prompt optical profile
     prompt_opt_profile = [-3.0, -1.9, -0.5,  0.0, -0.1,
                           -0.6, -0.9, -0.9, -0.5, -0.6,
                           -0.8, -0.1,  0.0,  0.0, -0.2,
@@ -213,10 +213,10 @@ def create_gpose_lightcurve(grb_mag, sky_background, ra, dec, channel_fov_radius
                               -2.6, -2.6, -2.6, -2.7, -2.7,
                               -2.8, -2.8, -2.8, -2.9, -3.0]
 
-    time_opt_profile = np.linspace(0.0, 2.0, num=20, endpoint=True)
+    time_opt_profile = np.linspace(0.0, t90, num=20, endpoint=True)
     func = interp1d(time_opt_profile, prompt_opt_profile, kind='cubic')
 
-    time_opt = np.arange(0.0, 2.0, del_time)
+    time_opt = np.arange(0.0, t90, del_time)
     prompt_opt = func(time_opt)
     #import ipdb;ipdb.set_trace() # debugging code
 
