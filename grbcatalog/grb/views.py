@@ -1454,6 +1454,7 @@ def gpose_sim_plot(request):
     telescope_radius = float(sim_parameters['telescope_radius'])
     gap_efficiency = float(sim_parameters['gap_efficiency'])
     profile = float(sim_parameters['profile'])
+    t90 = float(sim_parameters['t90'])
     del_time = float(sim_parameters['del_time'])
     telescope_fov = gpose.get_fov(gpose_radius)/num_telescope
     channel_fov = telescope_fov/num_channels
@@ -1467,7 +1468,8 @@ def gpose_sim_plot(request):
                                                            telescope_radius,
                                                            gap_efficiency,
                                                            profile,
-                                                           del_time)
+                                                           del_time,
+                                                           t90=t90)
 
     time2, rate2, rateErr2 = gpose.create_gpose_lightcurve(sim_parameters['grb_mag2'],
                                                            sky_background,
@@ -1477,7 +1479,8 @@ def gpose_sim_plot(request):
                                                            telescope_radius,
                                                            gap_efficiency,
                                                            profile,
-                                                           del_time)
+                                                           del_time,
+                                                           t90=t90)
 
     time3, rate3, rateErr3 = gpose.create_gpose_lightcurve(sim_parameters['grb_mag3'],
                                                            sky_background,
@@ -1487,7 +1490,8 @@ def gpose_sim_plot(request):
                                                            telescope_radius,
                                                            gap_efficiency,
                                                            profile,
-                                                           del_time)
+                                                           del_time,
+                                                           t90=t90)
 
     time4, rate4, rateErr4 = gpose.create_gpose_lightcurve(sim_parameters['grb_mag4'],
                                                            sky_background,
@@ -1497,7 +1501,8 @@ def gpose_sim_plot(request):
                                                            telescope_radius,
                                                            gap_efficiency,
                                                            profile,
-                                                           del_time)
+                                                           del_time,
+                                                           t90=t90)
 
     title = request.GET.get('title', 'GPOSE Light Curve')
 

@@ -12,6 +12,7 @@ Number of Telescopes, None, num_telescope, 64
 Number of GAP Channels, None, num_channels, 64
 Telescope Mirror Radius, inch, telescope_radius, 3.0
 GAP Quantum Efficiency, None, gap_efficiency, 0.4
+GRB Duration, sec, t90, 2.0
 GRB 01, mag, grb_mag1, 14
 GRB 02, mag, grb_mag2, 13
 GRB 03, mag, grb_mag3, 12
