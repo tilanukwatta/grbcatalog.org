@@ -78,9 +78,10 @@ def get_grb_info(grb_number):
 
     return grb_list
 
+#"""
 def create_parameter_combinations():
     sky_background_site_arr = [19.5, 20.5, 21.5, 22.0]
-    t90_arr = [2.0, 1.0, 0.5, 0.1, 0.05]
+    t90_arr = [2.0, 1.0, 0.5, 0.1, 0.05, 0.01]
     del_time_arr = [0.5, 0.1, 0.05, 0.01]
     grb_mag_arr = [6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
     gpose_radius_arr = [60.0]
@@ -104,7 +105,36 @@ def create_parameter_combinations():
 
     #import ipdb; ipdb.set_trace() # debugging code
     return para_comb
+#"""
 
+"""
+def create_parameter_combinations():
+    sky_background_site_arr = [21.5]
+    t90_arr = [2.0, 1.0, 0.5, 0.1, 0.05]
+    del_time_arr = [0.5]
+    grb_mag_arr = [6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+    gpose_radius_arr = [60.0]
+    num_telescope_arr = [16, 64]
+    num_channels_arr = [16, 64]
+    telescope_radius_arr = [5.0]
+    gap_efficiency_arr = [0.4]
+    profile_arr = [3.0]
+
+    num_para = 10  # modify this if you add more parameters
+    para_comb = np.array(np.meshgrid(sky_background_site_arr,
+                                     t90_arr,
+                                     del_time_arr,
+                                     grb_mag_arr,
+                                     gpose_radius_arr,
+                                     num_telescope_arr,
+                                     num_channels_arr,
+                                     telescope_radius_arr,
+                                     gap_efficiency_arr,
+                                     profile_arr)).T.reshape(-1, num_para)
+
+    #import ipdb; ipdb.set_trace() # debugging code
+    return para_comb
+"""
 
 if __name__ == '__main__':
 
@@ -220,36 +250,34 @@ if __name__ == '__main__':
                 if not z < 80:  # GRB is visible at the GPOSE observatory
                     cts_daytime_visible += 1
 
-            for para in para_comb[:5]:
-            #for para in para_comb:
-                sky_background_site = para[0]
-                t90 = para[1]
-                del_time = para[2]
-                grb_mag = para[3]
-                gpose_radius = para[4]
-                num_telescope = para[5]
-                num_channels = para[6]
-                telescope_radius = para[7]
-                gap_efficiency = para[8]
-                profile = para[9]
+            if zsun > 96:  # night time at GPOSE observatory
+                print "Night time...."
+                if not z < 80:  # GRB is visible at the GPOSE observatory
+                    print "Night time, GRB is visible...."
 
-                if zmoon < 90:
-                    bMoon, deltaV = gpose_sky.moonSkyMag(alpha, rho, z, zmoon, k_V, sky_background_site)
-                    sky_background = sky_background_site + deltaV  # add the contribution from the moon to the sky background
-                else:
-                    sky_background = sky_background_site
+                    #for para in para_comb[:5]:
+                    for para in para_comb:
+                        sky_background_site = para[0]
+                        t90 = para[1]
+                        del_time = para[2]
+                        grb_mag = para[3]
+                        gpose_radius = para[4]
+                        num_telescope = para[5]
+                        num_channels = para[6]
+                        telescope_radius = para[7]
+                        gap_efficiency = para[8]
+                        profile = para[9]
 
-                if zsun > 96:  # night time at GPOSE observatory
-                    print "Night time...."
-                    if not z < 80:  # GRB is visible at the GPOSE observatory
-                        print "Night time, GRB is visible...."
+                        if zmoon < 90:
+                            bMoon, deltaV = gpose_sky.moonSkyMag(alpha, rho, z, zmoon, k_V, sky_background_site)
+                            sky_background = sky_background_site + deltaV  # add the contribution from the moon to the sky background
+                        else:
+                            sky_background = sky_background_site
+
                         #"""
                         telescope_fov = gpose.get_fov(gpose_radius)/num_telescope
                         channel_fov = telescope_fov/num_channels
                         channel_fov_radius = gpose.get_fov_radius(channel_fov)
-
-                        grb_mag = 12
-                        #grb_mag = 12
 
                         print grb_mag, sky_background, grb_ra, grb_dec, channel_fov_radius, telescope_radius, gap_efficiency, profile, del_time
 
@@ -275,7 +303,8 @@ if __name__ == '__main__':
                         """
                         plt.plot(time1, rate1)
                         plt.errorbar(time1, rate1, yerr=rateErr1, ecolor='black', fmt='o')
-                        plt.title('Maximum significance: ' + str(round(maxSig, 3)))
+                        plt.title('Maximum significance: ' + str(round(maxSig, 3)) + ' GRB Mag: ' + str(round(grb_mag, 3)))
+                        #plt.title('Maximum significance: ' + str(round(maxSig, 3)))
                         plt.ylabel('Significance')
                         plt.xlabel('Time')
                         plt.tight_layout()
@@ -290,7 +319,8 @@ if __name__ == '__main__':
                         print df_row
                         results_df.append(df_row)
                         #import ipdb; ipdb.set_trace() # debugging code
-                        print "\n"
+                    print "\n"
+                    #break
             print "\n"
 
     # print the value of the counters.

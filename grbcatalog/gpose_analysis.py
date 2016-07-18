@@ -192,7 +192,7 @@ def create_gpose_lightcurve(grb_mag, sky_background, ra, dec, channel_fov_radius
 
     rate = sky_bk_ph_rate + np.random.randn(len(time)) * sky_bk_ph_rate_std_dev
 
-    # insert GRB prompt optical emission
+    # insert GRB prompt optical emission at 5 sec point
     index = int(5.0/del_time)
 
     # prompt optical profile
@@ -213,16 +213,24 @@ def create_gpose_lightcurve(grb_mag, sky_background, ra, dec, channel_fov_radius
                               -2.6, -2.6, -2.6, -2.7, -2.7,
                               -2.8, -2.8, -2.8, -2.9, -3.0]
 
-    time_opt_profile = np.linspace(0.0, t90, num=20, endpoint=True)
-    func = interp1d(time_opt_profile, prompt_opt_profile, kind='cubic')
+    if t90 > del_time:
+        time_opt_profile = np.linspace(0.0, t90, num=20, endpoint=True)
+        func = interp1d(time_opt_profile, prompt_opt_profile, kind='cubic')
 
-    time_opt = np.arange(0.0, t90, del_time)
-    prompt_opt = func(time_opt)
-    #import ipdb;ipdb.set_trace() # debugging code
+        time_opt = np.arange(0.0, t90, del_time)
+        prompt_opt = func(time_opt)
+        #import ipdb;ipdb.set_trace() # debugging code
+        for opt in prompt_opt:
+            rate[index] = rate[index] + get_photon_rate_from_mag_r(grb_mag - opt) * del_time
+            index = index + 1
+    else:
+        # since t90 is shorter than the time resolution, the GRB emission with grb_mag value
+        # will last only t90 sec and nothing after that.
+        prompt_opt = [0]
+        for opt in prompt_opt:
+            rate[index] = rate[index] + get_photon_rate_from_mag_r(grb_mag) * t90
+            index = index + 1
 
-    for opt in prompt_opt:
-        rate[index] = rate[index] + get_photon_rate_from_mag_r(grb_mag - opt) * del_time
-        index = index + 1
 
     rate = rate * area
     rateErr = np.sqrt(rate * area)

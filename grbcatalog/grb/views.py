@@ -1290,6 +1290,7 @@ def gpose_sim_page(request):
         x_label = request.GET.get('x_label', 'Time (sec)')
         y_label = request.GET.get('y_label', "Count Rate (counts/sec)")
         title = request.GET.get('title', 'GPOSE Light Curves')
+
     else:
         x_label = request.GET.get('x_label', 'Time (sec)')
         y_label = request.GET.get('y_label', "Count Rate (counts/sec)")
@@ -1308,6 +1309,14 @@ def gpose_sim_page(request):
     channel_fov = telescope_fov/num_channels
     channel_fov_deg = channel_fov * (180.0 / math.pi)**2.0
     channel_fov_radius = gpose.get_fov_radius(channel_fov)
+
+    # for 16 channel camera
+    h = 12.0  # mm
+    focal_length_16 = h/np.tan(telescope_fov_radius/180.0*np.pi)/2.0
+
+    # for 64 channel camera
+    h = 24.0  # mm
+    focal_length_64 = h/np.tan(telescope_fov_radius/180.0*np.pi)/2.0
 
     sky_background = sim_parameters_dict['sky_background']
     k_V = sim_parameters_dict['k_V']
@@ -1348,6 +1357,10 @@ def gpose_sim_page(request):
     sim_results_row = ['Brightness due to Moon at the Sky Location (V)', 'Mag', "%.5f" % bMoonMag]
     sim_results.append(sim_results_row)
     sim_results_row = ['Change in Sky Background due to Moon (V)', 'Mag', "%.5f" % deltaV]
+    sim_results.append(sim_results_row)
+    sim_results_row = ['Focal length of the objective lense (16 Channel) ', 'mm', "%.1f" % focal_length_16]
+    sim_results.append(sim_results_row)
+    sim_results_row = ['Focal length of the objective lense (64 Channel) ', 'mm', "%.1f" % focal_length_64]
     sim_results.append(sim_results_row)
 
     #import ipdb; ipdb.set_trace() # debugging code
