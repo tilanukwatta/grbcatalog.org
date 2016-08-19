@@ -32,12 +32,17 @@ if secrets.site == 'local':
     machine_z_data_file = '/home/tilan/Desktop/Dropbox/django/grbcatalog/grbcatalog/machine-z/grb_data_sample_num_284_f25.csv'
     feature_key_map = '/home/tilan/Desktop/Dropbox/django/grbcatalog/grbcatalog/machine-z/feature_key_map.dat'
     gpose_sim_parameters = '/home/tilan/Desktop/Dropbox/django/grbcatalog/grbcatalog/gpose/gpose_sim_parameters.dat'
-else:
+elif secrets.site == 'msu':
     grb_data_file = '/web_app/grbcatalog/grbcatalog/grb_data.dat'
     machine_z_data_file = '/web_app/grbcatalog/grbcatalog/machine-z/grb_data_sample_num_284_f25.csv'
     feature_key_map = '/web_app/grbcatalog/grbcatalog/machine-z/feature_key_map.dat'
     gpose_sim_parameters = '/web_app/grbcatalog/grbcatalog/gpose/gpose_sim_parameters.dat'
-
+else:
+    grb_data_file = '/home/tilanukwatta/grbcatalog.org/grbcatalog/grb_data.dat'
+    machine_z_data_file = '/home/tilanukwatta/grbcatalog.org/grbcatalog/machine-z/grb_data_sample_num_284_f25.csv'
+    feature_key_map = '/home/tilanukwatta/grbcatalog.org/grbcatalog/machine-z/feature_key_map.dat'
+    gpose_sim_parameters = '/home/tilanukwatta/grbcatalog.org/grbcatalog/gpose/gpose_sim_parameters.dat'
+    
 def get_set_intersection(set1, set2):
     set3 = []
     for item in set1:
