@@ -16,9 +16,12 @@ import pandas
 if secrets.site == 'local':
     star_catalog = '/home/tilan/Desktop/Dropbox/django/grbcatalog/grbcatalog/gpose/star_catalog.dat'
     star_photon_counts = '/home/tilan/Desktop/Dropbox/django/grbcatalog/grbcatalog/gpose/star_photon_counts.dat'
-else:
+elif secrets.site == 'msu':
     star_catalog = '/web_app/grbcatalog/grbcatalog/gpose/star_catalog.dat'
     star_photon_counts = '/web_app/grbcatalog/grbcatalog/gpose/star_photon_counts.dat'
+else:
+    star_catalog = '/home/tilanukwatta/grbcatalog.org/grbcatalog/gpose/star_catalog.dat'
+    star_photon_counts = '/home/tilanukwatta/grbcatalog.org/grbcatalog/gpose/star_photon_counts.dat'
 
 #sky_background = 21.5 # mag/arcsec^2 in V (551 nm)
 #telescope_fov = 0.85

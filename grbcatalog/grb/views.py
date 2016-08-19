@@ -42,7 +42,7 @@ else:
     machine_z_data_file = '/home/tilanukwatta/grbcatalog.org/grbcatalog/machine-z/grb_data_sample_num_284_f25.csv'
     feature_key_map = '/home/tilanukwatta/grbcatalog.org/grbcatalog/machine-z/feature_key_map.dat'
     gpose_sim_parameters = '/home/tilanukwatta/grbcatalog.org/grbcatalog/gpose/gpose_sim_parameters.dat'
-    
+
 def get_set_intersection(set1, set2):
     set3 = []
     for item in set1:
