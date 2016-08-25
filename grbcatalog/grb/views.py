@@ -6,6 +6,7 @@ import django
 #from django.template import Context
 from django.http import HttpResponse
 #from reportlab.pdfgen import canvas
+from django.contrib.auth.decorators import login_required
 from grbcatalog.grb.models import grb, measurement, measurement_type, grb_type, grb_type_list, observatory, grb_observatory_list, reference, help
 #from hawcmon.datelib import julian_day
 from datetime import date
@@ -26,6 +27,8 @@ import grbcatalog.gpose_analysis as gpose
 import grbcatalog.gpose_sky_model as gpose_sky
 import numpy as np
 import grbcatalog.secrets as secrets
+
+login_url = '/admin/'
 
 if secrets.site == 'local':
     grb_data_file = '/home/tilan/Desktop/Dropbox/django/grbcatalog/grbcatalog/grb_data.dat'
@@ -1259,7 +1262,7 @@ def machine_z_page(request):
                                                       'show_highz': show_highz,
     })
 
-
+@login_required(login_url=login_url)
 def gpose_sim_page(request):
 
     gpose_para_df = pandas.read_csv(gpose_sim_parameters)
