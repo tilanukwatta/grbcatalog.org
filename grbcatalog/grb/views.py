@@ -1262,7 +1262,7 @@ def machine_z_page(request):
                                                       'show_highz': show_highz,
     })
 
-@login_required(login_url=login_url)
+#@login_required(login_url=login_url)
 def gpose_sim_page(request):
 
     gpose_para_df = pandas.read_csv(gpose_sim_parameters)
@@ -1388,7 +1388,7 @@ def gpose_sim_page(request):
                                                      'y_log': y_log,
     })
 
-
+#@login_required(login_url=login_url)
 def gpose_sim_plot(request):
 
     fig = Figure(figsize=(12, 7), edgecolor='white', facecolor='white')
