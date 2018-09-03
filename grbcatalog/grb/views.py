@@ -35,6 +35,11 @@ if secrets.site == 'local':
     machine_z_data_file = '/home/tilan/Desktop/Dropbox/django/grbcatalog/grbcatalog/machine-z/grb_data_sample_num_284_f25.csv'
     feature_key_map = '/home/tilan/Desktop/Dropbox/django/grbcatalog/grbcatalog/machine-z/feature_key_map.dat'
     gpose_sim_parameters = '/home/tilan/Desktop/Dropbox/django/grbcatalog/grbcatalog/gpose/gpose_sim_parameters.dat'
+elif secrets.site == 'dev':
+    grb_data_file = '/home/tilan/work/grbcatalog.org/grbcatalog/grb_data.dat'
+    machine_z_data_file = '/home/tilan/work/grbcatalog.org/grbcatalog/machine-z/grb_data_sample_num_284_f25.csv'
+    feature_key_map = '/home/tilan/work/grbcatalog.org/grbcatalog/machine-z/feature_key_map.dat'
+    gpose_sim_parameters = '/home/tilan/work/grbcatalog.org/grbcatalog/gpose/gpose_sim_parameters.dat'
 elif secrets.site == 'msu':
     grb_data_file = '/web_app/grbcatalog/grbcatalog/grb_data.dat'
     machine_z_data_file = '/web_app/grbcatalog/grbcatalog/machine-z/grb_data_sample_num_284_f25.csv'
